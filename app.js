@@ -20,6 +20,8 @@ const articleRoutes = require('./api/routes/articles');
 //     "@medigent-shard-00-00-jfxgi.mongodb.net:27017,medigent-shard-00-01-jfxgi.mongodb.net:27017,medigent-shard-00-02-jfxgi.mongodb.net:27017/test?ssl=true&replicaSet=medigent-shard-0&authSource=admin"
 // );
 //mongoose.Promise = global.Promise;
+
+//dari luar pakai jagopesan.com // dari dalam pakai localhost
 mongoose.connect("mongodb://sherly:sherlycantiksekail@localhost:64526/medigent");
 
 app.use(morgan('dev'));
