@@ -29,7 +29,7 @@ const upload = multer({
 });
 
 //--GET /roles
-router.get('/', checkAuth, RolesController.roles_get_all);
+router.get('/', RolesController.roles_get_all);
 
 //--POST /roles
 router.post('/', checkAuth, upload.single('icon'), RolesController.roles_create_role);
