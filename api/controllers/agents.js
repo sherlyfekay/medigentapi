@@ -89,7 +89,7 @@ exports.agents_login = (req, res, next) => {
                         email: agent[0].email,
                         agentId: agent[0]._id
                     },
-                    process.env.JWT_KEY,
+                    'sherlycantik',
                     {
                     }
                 );
