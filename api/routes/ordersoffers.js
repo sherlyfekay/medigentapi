@@ -40,6 +40,9 @@ router.post('/offers', checkAuth, upload.single('foto') , OrdersOffersController
 //--GET /ordersoffers/category/userid
 router.get('/category/:userId', checkAuth, OrdersOffersController.oo_get_oo_by_iduser);
 
+//--GET /ordersoffers/kategori/agentid
+router.get('/kategori/:agentId', checkAuth, OrdersOffersController.oo_get_oo_by_idagent);
+
 //--GET /ordersoffers/ooid
 router.get('/:ooId', checkAuth, OrdersOffersController.oo_get_oo_by_idoo);
 

@@ -211,6 +211,80 @@ exports.oo_get_oo_by_iduser = async (req, res, next) => {
     });
 };
 
+exports.oo_get_oo_by_idagent = async (req, res, next) => {
+    let id = req.params.agentId;
+
+    let history = await OrderOffer
+    .aggregate([
+        {
+            $match: {
+                id_agent: new ObjectId(id)
+            }
+        },
+        {
+            $lookup: {
+                from: 'patients',
+                localField: 'id_patient',
+                foreignField: '_id',
+                as: 'patient'
+            }
+        },
+        {
+            $unwind: '$patient'
+        },
+        {
+            $lookup: {
+                from: 'addresses',
+                localField: 'id_address',
+                foreignField: '_id',
+                as: 'address'
+            }
+        },
+        {
+            $unwind: '$address'
+        },
+
+        // {
+        //     $lookup: {
+        //         from: 'agents',
+        //         localField: 'id_agent',
+        //         foreignField: '_id',
+        //         as: 'agent'
+        //     }
+        // },
+        // {
+        //     $unwind: '$agent'
+        // },
+        // {
+        //     $lookup: {
+        //         from: 'roles',
+        //         localField: 'agent.id_role',
+        //         foreignField: '_id',
+        //         as: 'role'
+        //     }
+        // },
+        // {
+        //     $unwind: '$role'
+        // },
+        {
+            $project: {
+                _id: 1,
+                jenis: {$cond: [{$eq:['jenis', 1]}, 'Pemesanan', 'Penawaran']},
+                nama_pasien: '$patient.nama_lengkap',
+                alamat_pasien: '$address.alamat_lengkap',
+                created_at: 1
+            }
+        }
+    ]);
+
+    console.log(history);
+    res.status(200).json({
+        count: history.length,
+        status: "200",
+        histories: history
+    });
+};
+
 exports.oo_get_oo_by_idoo = async (req, res, next) => {
     let id = req.params.ooId;
 
