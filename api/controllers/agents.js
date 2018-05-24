@@ -209,7 +209,7 @@ exports.agents_get_agent = (req, res, next) => {
     const id = req.params.agentId;
 
     Agent.findById(id)
-        .populate('id_role', 'nama_role')
+        //.populate('id_role', 'nama_role')
         .exec()
         .then(doc => {
             if(doc) {
