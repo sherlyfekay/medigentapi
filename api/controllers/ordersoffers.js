@@ -193,7 +193,7 @@ exports.oo_get_oo_by_iduser = async (req, res, next) => {
         {
             $project: {
                 _id: 1,
-                jenis:  {$cond: [{$eq:['jenis', 1]}, 'Pemesanan', 'Penawaran']},
+                jenis:  {$cond: [{$eq:['.jenis', 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
                 diagnosa: '$patient.diagnosa',
                 jml_shift: 1,
@@ -221,9 +221,6 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
             $match: {
                 id_agent: new ObjectId(id)
             }
-        },
-        {
-            $unwind: '$his'
         },
         {
             $lookup: {
@@ -273,7 +270,7 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
         {
             $project: {
                 _id: 1,
-                jenis: {$cond: [{$eq:['$his.jenis', 1]}, 'Pemesanan', 'Penawaran']},
+                jenis: 1,
                 nama_pasien: '$patient.nama_lengkap',
                 alamat_pasien: '$address.alamat_lengkap',
                 created_at: 1
@@ -335,7 +332,7 @@ exports.oo_get_oo_by_idoo = async (req, res, next) => {
         {
             $project: {
                 _id: 1,
-                jenis: {$cond: [{$eq:['jenis', 1]}, 'Pemesanan', 'Penawaran']},
+                jenis: {$cond: [{$eq:[jenis, 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
                 diagnosa: '$patient.diagnosa',
                 jml_shift: 1,
