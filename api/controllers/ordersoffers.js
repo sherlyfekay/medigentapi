@@ -272,7 +272,8 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
                 jenis: {$cond: [{$eq:['jenis', 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
                 alamat_pasien: '$address.alamat_lengkap',
-                created_at: 1
+                created_at: 1,
+                rating: 1
             }
         }
     ]);
