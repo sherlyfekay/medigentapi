@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
 const Rating = require('../models/rating');
+const OrderOffer = require('../models/orderoffer');
+const Agent = require('../models/agent');
 const BASE_URL = 'http://localhost:3000/';
 
 exports.ratings_get_all = (req, res, next) => {
@@ -34,8 +36,8 @@ exports.ratings_get_all = (req, res, next) => {
 
 exports.ratings_create_rating = (req, res, next) =>{
 
-    let checkAgent = await User.findById(req.body.id_agent);
-    let checkOrderOffer = await Address.findById(req.body.id_orderoffer);
+    let checkAgent = await Agent.findById(req.body.id_agent);
+    let checkOrderOffer = await OrderOffer.findById(req.body.id_orderoffer);
 
     if(checkAgent === null  || checkOrderOffer === null) {
         return res.status(201).json({
