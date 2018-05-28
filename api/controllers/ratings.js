@@ -104,35 +104,44 @@ exports.ratings_get_rating = (req, res, next) => {
         });
 };
 
-exports.ratings_get_ratings_by_idagent = (req, res, next) => {
-    const id = req.params.agentId;
+exports.ratings_get_ratings_by_idagent = async (req, res, next) => {
+    let id = req.params.agentId;
 
-    Rating.find()
-        .where('id_agent').equals(id)
-        .exec()
-        .then(docs => {
-            const response = {
-                count: docs.length,
-                status: "200",
-                ratings: docs.map(doc => {
-                    return {
-                        _id: doc._id,
-                        rating: doc.rating,
-                        tgl: doc.tgl,
-                        komentar: doc.komentar,
-                        id_agent: doc.id_agent,
-                        id_orderoffer: doc.id_orderoffer
-                    }
-                })
-            };
-            res.status(200).json(response);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
-        });
+    let rating = await Rating
+    .aggregate([
+        {
+            $match: {
+                id_agent: new ObjectId(id)
+            }
+        },
+        {
+            $lookup: {
+                from: 'orderoffers',
+                localField: 'id_orderoffer',
+                foreignField: '_id',
+                as: 'oo'
+            }
+        },
+        {
+            $unwind: '$oo'
+        },
+        {
+            $project: {
+                _id: 1,
+                rating: 1,
+                tgl: 1,
+                komentar: 1,
+                jenis: {$cond: [{$eq:['$oo.jenis', 1]}, 'Pemesanan', 'Penawaran']}
+            }
+        }
+    ]);
+
+    console.log(rating);
+    res.status(200).json({
+        count: rating.length,
+        status: "200",
+        ratings: rating
+    });
 };
 
 exports.ratings_update_rating = (req, res, next) => {
