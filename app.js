@@ -15,6 +15,7 @@ const historyRoutes = require('./api/routes/histories');
 const shiftRoutes = require('./api/routes/shifts');
 const ooRoutes = require('./api/routes/ordersoffers');
 const articleRoutes = require('./api/routes/articles');
+const ratingRoutes = require('./api/routes/ratings');
 
 // mongoose.connect("mongodb://admin:" + process.env.MONGO_ATLAS_PW + 
 //     "@medigent-shard-00-00-jfxgi.mongodb.net:27017,medigent-shard-00-01-jfxgi.mongodb.net:27017,medigent-shard-00-02-jfxgi.mongodb.net:27017/test?ssl=true&replicaSet=medigent-shard-0&authSource=admin"
@@ -54,6 +55,7 @@ app.use('/histories', historyRoutes);
 app.use('/shifts', shiftRoutes);
 app.use('/ordersoffers', ooRoutes);
 app.use('/articles', articleRoutes);
+app.use('/ratings', ratingRoutes);
 
 app.use((req, res, next) => {
     const error = new Error('Not found');

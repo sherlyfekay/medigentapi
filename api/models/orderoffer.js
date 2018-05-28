@@ -13,7 +13,6 @@ const orderofferSchema = mongoose.Schema({
     biaya: { type: String},
     info: { type: String},
     status: { type: Number, required: true},
-    rating: { type: Number},
     id_agent: { type: mongoose.Schema.Types.ObjectId, ref: 'Agent'},
     created_at: { type: String, required: true}
 });
