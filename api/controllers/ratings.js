@@ -132,7 +132,7 @@ exports.ratings_get_ratings_by_idagent = async (req, res, next) => {
                 rating: 1,
                 tgl: 1,
                 komentar: 1,
-                jenis: '$oo.jenis'
+                jenis: {$cond: [{$eq:['$oo.jenis', 1]}, 'Pemesanan', 'Penawaran']}
             }
         }
     ]);
