@@ -34,7 +34,7 @@ exports.ratings_get_all = (req, res, next) => {
         });
 };
 
-exports.ratings_create_rating = (req, res, next) =>{
+exports.ratings_create_rating = async (req, res, next) =>{
 
     let checkAgent = await Agent.findById(req.body.id_agent);
     let checkOrderOffer = await OrderOffer.findById(req.body.id_orderoffer);
