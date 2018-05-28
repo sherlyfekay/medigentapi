@@ -223,6 +223,9 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
             }
         },
         {
+            $unwind: '$his'
+        },
+        {
             $lookup: {
                 from: 'patients',
                 localField: 'id_patient',
@@ -270,7 +273,7 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
         {
             $project: {
                 _id: 1,
-                jenis: 1,
+                jenis: {$cond: [{$eq:['$his.jenis', 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
                 alamat_pasien: '$address.alamat_lengkap',
                 created_at: 1
