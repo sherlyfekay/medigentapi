@@ -153,7 +153,7 @@ exports.oo_get_oo_by_iduser = async (req, res, next) => {
         {
             $match: {
                 id_user: new ObjectId(id),
-                status: 2
+                status: { $or: [2, 3]}
             }
         },
         {
