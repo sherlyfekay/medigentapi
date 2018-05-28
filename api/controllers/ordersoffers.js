@@ -193,7 +193,7 @@ exports.oo_get_oo_by_iduser = async (req, res, next) => {
         {
             $project: {
                 _id: 1,
-                jenis:  {$cond: [{$eq:['.jenis', 1]}, 'Pemesanan', 'Penawaran']},
+                jenis:  {$cond: [{$eq:['$jenis', 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
                 diagnosa: '$patient.diagnosa',
                 jml_shift: 1,
@@ -244,33 +244,10 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
         {
             $unwind: '$address'
         },
-
-        // {
-        //     $lookup: {
-        //         from: 'agents',
-        //         localField: 'id_agent',
-        //         foreignField: '_id',
-        //         as: 'agent'
-        //     }
-        // },
-        // {
-        //     $unwind: '$agent'
-        // },
-        // {
-        //     $lookup: {
-        //         from: 'roles',
-        //         localField: 'agent.id_role',
-        //         foreignField: '_id',
-        //         as: 'role'
-        //     }
-        // },
-        // {
-        //     $unwind: '$role'
-        // },
         {
             $project: {
                 _id: 1,
-                jenis: 1,
+                jenis: {$cond: [{$eq:['jenis', 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
                 alamat_pasien: '$address.alamat_lengkap',
                 created_at: 1
@@ -332,7 +309,7 @@ exports.oo_get_oo_by_idoo = async (req, res, next) => {
         {
             $project: {
                 _id: 1,
-                jenis: {$cond: [{$eq:[jenis, 1]}, 'Pemesanan', 'Penawaran']},
+                jenis: {$cond: [{$eq:['jenis', 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
                 diagnosa: '$patient.diagnosa',
                 jml_shift: 1,
