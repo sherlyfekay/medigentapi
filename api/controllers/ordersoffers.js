@@ -157,9 +157,7 @@ exports.oo_get_oo_by_iduser = async (req, res, next) => {
                 $or: [{status: 2}, {status: 3}]
             }
         },
-        {
-            $sort: {created_at: -1}
-        },
+        
         {
             $lookup: {
                 from: 'patients',
