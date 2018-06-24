@@ -158,6 +158,9 @@ exports.oo_get_oo_by_iduser = async (req, res, next) => {
             }
         },
         {
+            $sort: {created_at: -1}
+        },
+        {
             $lookup: {
                 from: 'patients',
                 localField: 'id_patient',
