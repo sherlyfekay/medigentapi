@@ -6,7 +6,7 @@ const BASE_URL = 'http://localhost:3000/';
 
 exports.addresses_get_all = (req, res, next) => {
     Address.find()
-        .select("_id provinsi kota kecamatan desa alamat_lengkap id_user")
+        .select("_id judul alamat_lengkap tambahan lat lng id_user")
         .populate('id_user', 'nama_lengkap')
         .exec()
         .then(docs => {
@@ -16,11 +16,11 @@ exports.addresses_get_all = (req, res, next) => {
                 addresses: docs.map(doc => {
                     return {
                         _id: doc._id,
-                        provinsi: doc.provinsi,
-                        kota: doc.kota,
-                        kecamatan: doc.kecamatan,
-                        desa: doc.desa,
+                        judul: doc.judul,
                         alamat_lengkap: doc.alamat_lengkap,
+                        tambahan: doc.tambahan,
+                        lat: doc.lat,
+                        lng: doc.lng,
                         id_user: doc.id_user
                     }
                 })
@@ -46,11 +46,11 @@ exports.addresses_create_address = (req, res, next) =>{
 
         const address = new Address({
             _id: new mongoose.Types.ObjectId(),
-            provinsi: req.body.provinsi,
-            kota: req.body.kota,
-            kecamatan: req.body.kecamatan,
-            desa: req.body.desa,
+            judul: req.body.judul,
             alamat_lengkap: req.body.alamat_lengkap,
+            tambahan: req.body.tambahan,
+            lat: req.body.lat,
+            lng: req.body.lng,
             id_user: req.body.id_user
         });
     
@@ -62,11 +62,11 @@ exports.addresses_create_address = (req, res, next) =>{
             message: 'Address created successfully',
             address: {
                 _id: result._id,
-                provinsi: result.provinsi,
-                kota: result.kota,
-                kecamatan: result.kecamatan,
-                desa: result.desa,
+                judul: result.judul,
                 alamat_lengkap: result.alamat_lengkap,
+                tambahan: result.tambahan,
+                lat: result.lat,
+                lng: result.lng,
                 id_user: result.id_user
             }
         });
@@ -89,11 +89,11 @@ exports.addresses_get_address = (req, res, next) => {
             if(doc) {
                 res.status(200).json({
                     _id: doc._id,
-                    provinsi: doc.provinsi,
-                    kota: doc.kota,
-                    kecamatan: doc.kecamatan,
-                    desa: doc.desa,
+                    judul: doc.judul,
                     alamat_lengkap: doc.alamat_lengkap,
+                    tambahan: doc.tambahan,
+                    lat: doc.lat,
+                    lng: doc.lng,
                     id_user: doc.id_user
                 });
             }
@@ -124,11 +124,11 @@ exports.addresses_get_addresses_by_iduser = (req, res, next) => {
                 addresses: docs.map(doc => {
                     return {
                         _id: doc._id,
-                        provinsi: doc.provinsi,
-                        kota: doc.kota,
-                        kecamatan: doc.kecamatan,
-                        desa: doc.desa,
+                        judul: doc.judul,
                         alamat_lengkap: doc.alamat_lengkap,
+                        tambahan: doc.tambahan,
+                        lat: doc.lat,
+                        lng: doc.lng,
                         id_user: doc.id_user
                     }
                 })
