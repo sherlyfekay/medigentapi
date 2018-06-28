@@ -143,20 +143,40 @@ exports.addresses_get_addresses_by_iduser = (req, res, next) => {
         });
 };
 
+// exports.addresses_update_address = (req, res, next) => {
+//     const id = req.params.addressId;
+//     const updateOps = {};
+
+//     for(const ops of req.body) {
+//         updateOps[ops.propName] = ops.value;
+//     }
+
+//     Address.update({ _id: id}, { $set: updateOps})
+//         .exec()
+//         .then(result => {
+//             console.log(result);
+//             res.status(200).json({
+//                 message: 'Address updated'
+//             });
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             res.status(500).json({
+//                 error: err
+//             });
+//         });
+// };
+
 exports.addresses_update_address = (req, res, next) => {
     const id = req.params.addressId;
-    const updateOps = {};
 
-    for(const ops of req.body) {
-        updateOps[ops.propName] = ops.value;
-    }
-
-    Address.update({ _id: id}, { $set: updateOps})
+    if(req.body.fieldUser === 'tambahan') {
+        User.updateOne({ _id: id}, { $set: {tambahan: req.body.valueUser}})
         .exec()
         .then(result => {
             console.log(result);
             res.status(200).json({
-                message: 'Address updated'
+                message: 'Update informasi tambahan berhasil'
             });
         })
         .catch(err => {
@@ -165,6 +185,7 @@ exports.addresses_update_address = (req, res, next) => {
                 error: err
             });
         });
+    }
 };
 
 exports.addresses_delete_address = (req, res, next) => {
