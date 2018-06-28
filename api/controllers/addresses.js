@@ -171,7 +171,7 @@ exports.addresses_update_address = (req, res, next) => {
     const id = req.params.addressId;
 
     if(req.body.fieldUser === 'tambahan') {
-        User.updateOne({ _id: id}, { $set: {tambahan: req.body.valueUser}})
+        Address.updateOne({ _id: id}, { $set: {tambahan: req.body.valueUser}})
         .exec()
         .then(result => {
             console.log(result);
