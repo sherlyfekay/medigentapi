@@ -119,7 +119,7 @@ exports.agents_login = (req, res, next) => {
 exports.agents_get_all = (req, res, next) => {
     Agent.find()
         .select("_id nama_lengkap email password telepon jk tgl_lahir alamat spesialis sertifikat foto id_role")
-        .populate('id_role', 'nama_role')
+        // .populate('id_role', 'nama_role')
         .exec()
         .then(docs => {
             const response = {
