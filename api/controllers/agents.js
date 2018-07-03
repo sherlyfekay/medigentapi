@@ -286,6 +286,81 @@ exports.agents_update_agent = (req, res, next) => {
         });
 };
 
+exports.agents_update_name = (req, res, next) => {
+    const id = req.params.agentId;
+
+    if(req.body.field === 'nama_lengkap') {
+        Agent.updateOne({ _id: id}, { $set: {nama_lengkap: req.body.value}})
+        .exec()
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                message: 'Update nama lengkap berhasil',
+                status : "100"
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+    }
+    // else if(req.body.fieldUser === 'telepon') {
+    //     User.updateOne({ _id: id}, { $set: {telepon: req.body.valueUser}})
+    //     .exec()
+    //     .then(result => {
+    //         console.log(result);
+    //         res.status(200).json({
+    //             message: 'Update nomor telepon berhasil',
+    //             "status": "100"
+    //         });
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //         res.status(500).json({
+    //             error: err
+    //         });
+    //     });
+    // }
+    // else if(req.body.fieldUser === 'tgl_lahir') {
+    //     User.updateOne({ _id: id}, { $set: {tgl_lahir: req.body.valueUser}})
+    //     .exec()
+    //     .then(result => {
+    //         console.log(result);
+    //         res.status(200).json({
+    //             message: 'Update tanggal lahir telepon berhasil',
+    //             "status": "100"
+    //         });
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //         res.status(500).json({
+    //             error: err
+    //         });
+    //     });
+    // }
+    // else if(req.body.fieldUser === 'jk') {
+    //     User.updateOne({ _id: id}, { $set: {jk: req.body.valueUser}})
+    //     .exec()
+    //     .then(result => {
+    //         console.log(result);
+    //         res.status(200).json({
+    //             message: 'Update jenis kelamin berhasil',
+    //             "status": "100"
+    //         });
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //         res.status(500).json({
+    //             error: err
+    //         });
+    //     });
+    // }
+
+    
+};
+
 exports.agents_delete_agent = (req, res, next) => {
     const id = req.params.agentId;
 
