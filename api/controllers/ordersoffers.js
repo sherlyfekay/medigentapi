@@ -334,8 +334,7 @@ exports.oo_get_daftaroo = async (req, res, next) => {
     .aggregate([
         {
             $match: {
-                status: 1,
-                jenis: 1
+                status: 1
             }
         },
         {
