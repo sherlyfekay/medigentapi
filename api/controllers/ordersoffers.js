@@ -334,7 +334,10 @@ exports.oo_get_daftaroo = async (req, res, next) => {
     .aggregate([
         {
             $match: {
-                status: 1
+               $and: [
+                   {status: 1},
+                   {jenis: 1}
+               ]
             }
         },
         {
@@ -362,6 +365,8 @@ exports.oo_get_daftaroo = async (req, res, next) => {
         {
             $project: {
                 _id: 1,
+                status: 1,
+                jenis: 1,
                 nama_pasien: '$patient.nama_lengkap',
                 jk: '$patient.jk',
                 diagnosa: '$patient.diagnosa',
