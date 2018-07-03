@@ -118,7 +118,7 @@ exports.agents_login = (req, res, next) => {
 
 exports.agents_get_all = (req, res, next) => {
     Agent.find()
-        .select("_id nama_lengkap email password telepon jk tgl_lahir alamat spesialis sertifikat foto id_role")
+        .select("_id nama_lengkap email password telepon jk tgl_lahir judul alamat_lengkap tambahan lat lng rating spesialis sertifikat foto id_role")
         // .populate('id_role', 'nama_role')
         .exec()
         .then(docs => {
@@ -134,7 +134,12 @@ exports.agents_get_all = (req, res, next) => {
                         telepon: doc.telepon,
                         jk: doc.jk,
                         tgl_lahir: doc.tgl_lahir,
-                        alamat: doc.alamat,
+                        judul: doc.judul,
+                        alamat_lengkap: doc.alamat_lengkap,
+                        tambahan: doc.tambahan,
+                        lat: doc.lat,
+                        lng: doc.lng,
+                        rating: doc.rating,
                         spesialis: doc.spesialis,
                         sertifikat: doc.sertifikat,
                         foto: doc.foto,
@@ -169,7 +174,12 @@ exports.agents_create_agent = (req, res, next) =>{
             telepon: req.body.telepon,
             jk: req.body.jk,
             tgl_lahir: req.body.tgl_lahir,
-            alamat: req.body.alamat,
+            judul: req.body.judul,
+            alamat_lengkap: req.body.alamat_lengkap,
+            tambahan: req.body.tambahan,
+            lat: req.body.lat,
+            lng: req.body.lng,
+            rating: req.body.rating,
             spesialis: req.body.spesialis,
             sertifikat: BASE_URL + 'uploads/' + req.files['sertifikat'][0].filename,
             foto: BASE_URL + 'uploads/' + req.files['foto'][0].filename,
@@ -189,7 +199,12 @@ exports.agents_create_agent = (req, res, next) =>{
                 telepon: result.telepon,
                 jk: result.jk,
                 tgl_lahir: result.tgl_lahir,
-                alamat: result.alamat,
+                judul: result.judul,
+                alamat_lengkap: result.alamat_lengkap,
+                tambahan: result.tambahan,
+                lat: result.lat,
+                lng: result.lng,
+                rating: result.rating,
                 spesialis: result.spesialis,
                 sertifikat: result.sertifikat,
                 foto: result.foto,
@@ -221,7 +236,12 @@ exports.agents_get_agent = (req, res, next) => {
                     telepon: doc.telepon,
                     jk: doc.jk,
                     tgl_lahir: doc.tgl_lahir,
-                    alamat: doc.alamat,
+                    judul: doc.judul,
+                    alamat_lengkap: doc.alamat_lengkap,
+                    tambahan: doc.tambahan,
+                    lat: doc.lat,
+                    lng: doc.lng,
+                    rating: doc.rating,
                     spesialis: doc.spesialis,
                     sertifikat: doc.sertifikat,
                     foto: doc.foto,
