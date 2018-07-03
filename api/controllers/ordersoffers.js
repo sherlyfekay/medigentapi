@@ -327,6 +327,58 @@ exports.oo_get_oo_by_idoo = async (req, res, next) => {
     res.status(200).json(history[0]);
 };
 
+exports.oo_get_daftaroo = async (req, res, next) => {
+    // let id = req.params.ooId;
+
+    let history = await OrderOffer
+    .aggregate([
+        {
+            $match: {
+                status: 1,
+                jenis: 1
+            }
+        },
+        {
+            $lookup: {
+                from: 'patients',
+                localField: 'id_patient',
+                foreignField: '_id',
+                as: 'patient'
+            }
+        },
+        {
+            $unwind: '$patient'
+        },
+        {
+            $lookup: {
+                from: 'addresses',
+                localField: 'id_address',
+                foreignField: '_id',
+                as: 'address'
+            }
+        },
+        {
+            $unwind: '$address'
+        },
+        {
+            $project: {
+                _id: 1,
+                nama_pasien: '$patient.nama_lengkap',
+                jk: '$patient.jk',
+                diagnosa: '$patient.diagnosa',
+                alamat: '$address.alamat_lengkap'
+            }
+        }
+    ]);
+
+    console.log(history);
+    res.status(200).json({
+        count: history.length,
+        status: "200",
+        orders: history
+    });
+};
+
 exports.oo_delete_oo = (req, res, next) => {
     const id = req.params.ooId;
 
