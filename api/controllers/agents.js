@@ -268,6 +268,7 @@ exports.agents_update_agent = (req, res, next) => {
 
     for(const ops of req.body) {
         updateOps[ops.field] = ops.value;
+        console.log(ops.value);
     }
 
     Agent.update({ _id: id}, { $set: updateOps})
