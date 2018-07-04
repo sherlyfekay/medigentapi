@@ -287,6 +287,31 @@ exports.agents_update_agent = (req, res, next) => {
         });
 };
 
+exports.agents_update_latlng = (req, res, next) => {
+    const id = req.params.agentId;
+    const updateOps = {};
+
+    for(const ops of req.body) {
+        updateOps[ops.field] = ops.numValue;
+        console.log(ops.value);
+    }
+
+    Agent.update({ _id: id}, { $set: updateOps})
+        .exec()
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                message: 'Agent updated'
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+};
+
 exports.agents_update_name = (req, res, next) => {
     const id = req.params.agentId;
 
