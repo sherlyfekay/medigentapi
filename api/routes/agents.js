@@ -51,6 +51,9 @@ router.patch('/:agentId', checkAuth, AgentsController.agents_update_name);
 //--PATCH /agents/update/_id
 router.patch('/update/:agentId', checkAuth, AgentsController.agents_update_agent);
 
+//--PATCH /agents/updatelatlng/_id
+router.patch('/updatelatlng/:agentId', checkAuth, AgentsController.agents_update_latlng);
+
 //--DELETE /agents/_id
 router.delete('/:agentId', checkAuth, AgentsController.agents_delete_agent);
 
