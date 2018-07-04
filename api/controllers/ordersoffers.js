@@ -370,7 +370,9 @@ exports.oo_get_daftaroo = async (req, res, next) => {
                 nama_pasien: '$patient.nama_lengkap',
                 jk: '$patient.jk',
                 diagnosa: '$patient.diagnosa',
-                alamat: '$address.alamat_lengkap'
+                alamat: '$address.alamat_lengkap',
+                lat: '$address.lat',
+                lng: '$address.lng'
             }
         }
     ]);
