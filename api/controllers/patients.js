@@ -83,7 +83,6 @@ exports.patients_get_patient = (req, res, next) => {
     const id = req.params.patientId;
 
     Patient.findById(id)
-        .populate('id_user', 'nama_lengkap')
         .exec()
         .then(doc => {
             if(doc) {
