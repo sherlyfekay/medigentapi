@@ -253,6 +253,7 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
         {
             $project: {
                 _id: 1,
+                status: 1,
                 jenis: {$cond: [{$eq:['$jenis', 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
                 alamat_lengkap: '$address.alamat_lengkap',
