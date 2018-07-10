@@ -237,12 +237,22 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
             $unwind: '$patient'
         },
         {
+            $lookup: {
+                from: 'addresses',
+                localField: 'id_address',
+                foreignField: '_id',
+                as: 'address'
+            }
+        },
+        {
+            $unwind: '$address'
+        },
+        {
             $project: {
                 _id: 1,
                 jenis: {$cond: [{$eq:['$jenis', 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
-                //alamat: '$address.alamat_lengkap',
-                id_address: 1,
+                alamat_lengkap: '$address.alamat_lengkap',
                 created_at: 1
             }
         }
