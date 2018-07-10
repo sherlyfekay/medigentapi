@@ -235,7 +235,8 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
         },
         {
             $unwind: '$patient'
-        }
+        },
+        
         {
             $project: {
                 _id: 1,
