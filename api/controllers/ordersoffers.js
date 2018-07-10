@@ -224,6 +224,26 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
             $match: {
                 id_agent: new ObjectId(id)
             }
+        },
+        {
+            $lookup: {
+                from: 'patients',
+                localField: 'id_patient',
+                foreignField: '_id',
+                as: 'patient'
+            }
+        },
+        {
+            $unwind: '$patient'
+        }
+        {
+            $project: {
+                _id: 1,
+                jenis: {$cond: [{$eq:['$jenis', 1]}, 'Pemesanan', 'Penawaran']},
+                nama_pasien: '$patient.nama_lengkap',
+                // alamat_pasien: '$address.alamat_lengkap',
+                created_at: 1
+            }
         }
     ]);
 
