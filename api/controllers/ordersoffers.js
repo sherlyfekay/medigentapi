@@ -447,7 +447,7 @@ exports.oo_update_oo = (req, res, next) => {
     const updateOps = {};
 
     for(const ops of req.body) {
-        updateOps[ops.field] = ops.value;
+        updateOps[ops.field] = ops.intValue;
     }
 
     OrderOffer.update({ _id: id}, { $set: updateOps})
