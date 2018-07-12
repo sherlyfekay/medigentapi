@@ -316,6 +316,7 @@ exports.oo_get_oo_by_idoo = async (req, res, next) => {
         {
             $project: {
                 _id: 1,
+                status: 1,
                 jenis: {$cond: [{$eq:['$jenis', 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
                 diagnosa: '$patient.diagnosa',
