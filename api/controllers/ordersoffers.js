@@ -345,6 +345,57 @@ exports.oo_get_oo_by_idoo = async (req, res, next) => {
     res.status(200).json(history[0]);
 };
 
+exports.oo_get_oo_by_idoo2 = async (req, res, next) => {
+    let id = req.params.ooId;
+
+    let history = await OrderOffer
+    .aggregate([
+        {
+            $match: {
+                _id: new ObjectId(id)
+            }
+        },
+        {
+            $lookup: {
+                from: 'patients',
+                localField: 'id_patient',
+                foreignField: '_id',
+                as: 'patient'
+            }
+        },
+        {
+            $unwind: '$patient'
+        },
+        {
+            $lookup: {
+                from: 'addresses',
+                localField: 'id_address',
+                foreignField: '_id',
+                as: 'address'
+            }
+        },
+        {
+            $unwind: '$address'
+        },
+        {
+            $project: {
+                _id: 1,
+                status: 1,
+                jenis: {$cond: [{$eq:['$jenis', 1]}, 'Pemesanan', 'Penawaran']},
+                nama_pasien: '$patient.nama_lengkap',
+                diagnosa: '$patient.diagnosa',
+                jml_shift: 1,
+                created_at: 1,
+                lat: '$address.lat',
+                lng: '$address.lng'
+            }
+        }
+    ]);
+
+    console.log(history);
+    res.status(200).json(history[0]);
+};
+
 exports.oo_get_daftaroo = async (req, res, next) => {
     // let id = req.params.ooId;
 

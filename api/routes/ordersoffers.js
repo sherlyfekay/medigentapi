@@ -49,6 +49,9 @@ router.get('/daftarorder', checkAuth, OrdersOffersController.oo_get_daftaroo);
 //--GET /ordersoffers/ooid
 router.get('/:ooId', checkAuth, OrdersOffersController.oo_get_oo_by_idoo);
 
+//--GET /ordersoffers/get/ooid
+router.get('/get/:ooId', checkAuth, OrdersOffersController.oo_get_oo_by_idoo2);
+
 // //--GET /orders/_id
 // router.get('/:orderId', checkAuth, OrdersController.orders_get_order);
 
