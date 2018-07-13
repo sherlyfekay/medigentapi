@@ -336,8 +336,7 @@ exports.oo_get_oo_by_idoo = async (req, res, next) => {
                 nama_agent: '$agent.nama_lengkap',
                 role: '$role.nama_role',
                 lat: '$address.lat',
-                lng: '$address.lng',
-                alamat_lengkap: '$address.alamat_lengkap'
+                lng: '$address.lng'
             }
         }
     ]);
@@ -388,7 +387,8 @@ exports.oo_get_oo_by_idoo2 = async (req, res, next) => {
                 jml_shift: 1,
                 created_at: 1,
                 lat: '$address.lat',
-                lng: '$address.lng'
+                lng: '$address.lng',
+                alamat_lengkap: '$address.alamat_lengkap'
             }
         }
     ]);
