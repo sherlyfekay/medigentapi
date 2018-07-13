@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const Agent = require('../models/agent');
 const Role = require('../models/role');
-const BASE_URL = 'http://192.168.43.157:3000/';
+const BASE_URL = 'https://sherly.jagopesan.com/';
 
 exports.agents_signup = (req, res, next) =>{
     Agent.find({ email: req.body.email })
