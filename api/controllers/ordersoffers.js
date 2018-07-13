@@ -336,7 +336,8 @@ exports.oo_get_oo_by_idoo = async (req, res, next) => {
                 nama_agent: '$agent.nama_lengkap',
                 role: '$role.nama_role',
                 lat: '$address.lat',
-                lng: '$address.lng'
+                lng: '$address.lng',
+                alamat_lengkap: '$address.alamat_lengkap'
             }
         }
     ]);
