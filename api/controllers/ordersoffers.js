@@ -314,6 +314,17 @@ exports.oo_get_oo_by_idoo = async (req, res, next) => {
             $unwind: '$role'
         },
         {
+            $lookup: {
+                from: 'addresses',
+                localField: 'id_address',
+                foreignField: '_id',
+                as: 'address'
+            }
+        },
+        {
+            $unwind: '$address'
+        },
+        {
             $project: {
                 _id: 1,
                 status: 1,
@@ -323,7 +334,9 @@ exports.oo_get_oo_by_idoo = async (req, res, next) => {
                 jml_shift: 1,
                 created_at: 1,
                 nama_agent: '$agent.nama_lengkap',
-                role: '$role.nama_role'
+                role: '$role.nama_role',
+                lat: '$address.lat',
+                lng: '$address.lng'
             }
         }
     ]);
