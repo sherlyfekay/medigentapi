@@ -38,7 +38,10 @@ router.post('/orders', checkAuth, upload.single('foto') , OrdersOffersController
 router.post('/offers', checkAuth, upload.single('foto') , OrdersOffersController.oo_create_offer);
 
 //--GET /ordersoffers/category/userid
-router.get('/category/:userId', checkAuth, OrdersOffersController.oo_get_oo_by_iduser);
+router.get('/category23/:userId', checkAuth, OrdersOffersController.oo_get_oo_by_iduser23);
+
+//--GET /ordersoffers/category/userid
+router.get('/category14/:userId', checkAuth, OrdersOffersController.oo_get_oo_by_iduser14);
 
 //--GET /ordersoffers/kategori/agentid
 router.get('/kategori/:agentId', checkAuth, OrdersOffersController.oo_get_oo_by_idagent);

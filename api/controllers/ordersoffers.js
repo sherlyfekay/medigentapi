@@ -145,16 +145,16 @@ exports.oo_create_offer = async (req, res, next) =>{
     }
 };
 
-exports.oo_get_oo_by_iduser = async (req, res, next) => {
+exports.oo_get_oo_by_iduser23 = async (req, res, next) => {
     let id = req.params.userId;
 
     let history = await OrderOffer
     .aggregate([
         {
             $match: {
-                id_user: new ObjectId(id)
+                id_user: new ObjectId(id),
                 //status: { $or: [2, 3]}
-                //$or: [{status: 2}, {status: 3}]
+                $or: [{status: 2}, {status: 3}]
             }
         },
         {
@@ -204,6 +204,53 @@ exports.oo_get_oo_by_iduser = async (req, res, next) => {
                 created_at: 1,
                 nama_agent: '$agent.nama_lengkap',
                 role: '$role.nama_role'
+            }
+        }
+    ]);
+
+    console.log(history);
+    res.status(200).json({
+        count: history.length,
+        status: "200",
+        histories: history
+    });
+};
+
+exports.oo_get_oo_by_iduser14 = async (req, res, next) => {
+    let id = req.params.userId;
+
+    let history = await OrderOffer
+    .aggregate([
+        {
+            $match: {
+                id_user: new ObjectId(id),
+                //status: { $or: [2, 3]}
+                $or: [{status: 1}, {status: 4}]
+            }
+        },
+        {
+            $sort: {created_at: -1}
+        },
+        {
+            $lookup: {
+                from: 'patients',
+                localField: 'id_patient',
+                foreignField: '_id',
+                as: 'patient'
+            }
+        },
+        {
+            $unwind: '$patient'
+        },
+        {
+            $project: {
+                _id: 1,
+                status: 1,
+                jenis:  {$cond: [{$eq:['$jenis', 1]}, 'Pemesanan', 'Penawaran']},
+                nama_pasien: '$patient.nama_lengkap',
+                diagnosa: '$patient.diagnosa',
+                jml_shift: 1,
+                created_at: 1
             }
         }
     ]);
