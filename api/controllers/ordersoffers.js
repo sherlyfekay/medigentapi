@@ -194,6 +194,17 @@ exports.oo_get_oo_by_iduser23 = async (req, res, next) => {
             $unwind: '$role'
         },
         {
+            $lookup: {
+                from: 'addresses',
+                localField: 'id_address',
+                foreignField: '_id',
+                as: 'address'
+            }
+        },
+        {
+            $unwind: '$address'
+        },
+        {
             $project: {
                 _id: 1,
                 status: 1,
@@ -202,6 +213,7 @@ exports.oo_get_oo_by_iduser23 = async (req, res, next) => {
                 diagnosa: '$patient.diagnosa',
                 jml_shift: 1,
                 created_at: 1,
+                alamat_lengkap: '$address.alamat_lengkap',
                 nama_agent: '$agent.nama_lengkap',
                 role: '$role.nama_role'
             }
@@ -243,12 +255,24 @@ exports.oo_get_oo_by_iduser14 = async (req, res, next) => {
             $unwind: '$patient'
         },
         {
+            $lookup: {
+                from: 'addresses',
+                localField: 'id_address',
+                foreignField: '_id',
+                as: 'address'
+            }
+        },
+        {
+            $unwind: '$address'
+        },
+        {
             $project: {
                 _id: 1,
                 status: 1,
                 jenis:  {$cond: [{$eq:['$jenis', 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
                 diagnosa: '$patient.diagnosa',
+                alamat_lengkap: '$address.alamat_lengkap',
                 jml_shift: 1,
                 created_at: 1
             }
