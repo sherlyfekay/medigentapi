@@ -152,9 +152,9 @@ exports.oo_get_oo_by_iduser = async (req, res, next) => {
     .aggregate([
         {
             $match: {
-                id_user: new ObjectId(id),
+                id_user: new ObjectId(id)
                 //status: { $or: [2, 3]}
-                $or: [{status: 2}, {status: 3}]
+                //$or: [{status: 2}, {status: 3}]
             }
         },
         {
@@ -196,6 +196,7 @@ exports.oo_get_oo_by_iduser = async (req, res, next) => {
         {
             $project: {
                 _id: 1,
+                status: 1,
                 jenis:  {$cond: [{$eq:['$jenis', 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
                 diagnosa: '$patient.diagnosa',
