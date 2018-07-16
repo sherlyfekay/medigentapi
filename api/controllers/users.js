@@ -302,9 +302,9 @@ exports.users_update_foto = (req, res, next) => {
             });
         }
 
-        User.updateOne({ _id: id}, { $set: {foto: BASE_URL + 'uploads/' + req.files['foto'][0].filename}}).exec();
+        User.updateOne({ _id: id}, { $set: {foto: BASE_URL + 'uploads/' + req.file.filename}}).exec();
         //return agent.save()
-        console.log(req.files['foto'][0].filename);
+        console.log(req.file.filename);
         return
     })
     .then(result => {
