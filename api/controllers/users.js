@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
-const BASE_URL = 'http://localhost:3000/';
+const BASE_URL = 'https://sherly.jagopesan.com/';
 
 exports.users_signup = (req, res, next) =>{
     User.find({ email: req.body.email })
@@ -270,6 +270,24 @@ exports.users_update_name = (req, res, next) => {
             });
         });
     }
+    else if(req.body.fieldUser === 'foto') {
+        User.updateOne({ _id: id}, { $set: {foto: req.files['valueUser'][0].filename}})
+        .exec()
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                message: 'Update foto berhasil',
+                "status": "100"
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+    }
+
 
     
 };
