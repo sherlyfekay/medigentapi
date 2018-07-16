@@ -226,7 +226,7 @@ exports.users_update_name = (req, res, next) => {
             console.log(result);
             res.status(200).json({
                 message: 'Update nomor telepon berhasil',
-                "status": "100"
+                status: "100"
             });
         })
         .catch(err => {
@@ -243,7 +243,7 @@ exports.users_update_name = (req, res, next) => {
             console.log(result);
             res.status(200).json({
                 message: 'Update tanggal lahir telepon berhasil',
-                "status": "100"
+                status: "100"
             });
         })
         .catch(err => {
@@ -260,7 +260,7 @@ exports.users_update_name = (req, res, next) => {
             console.log(result);
             res.status(200).json({
                 message: 'Update jenis kelamin berhasil',
-                "status": "100"
+                status: "100"
             });
         })
         .catch(err => {
@@ -310,7 +310,8 @@ exports.users_update_foto = (req, res, next) => {
     .then(result => {
         console.log(result);
         res.status(201).json({
-            message: 'Foto berhasil diperbarui'
+            message: 'Foto berhasil diperbarui',
+            foto: result.foto
         });
     })
     .catch(err => {
