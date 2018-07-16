@@ -310,7 +310,7 @@ exports.users_update_foto = (req, res, next) => {
     .then(result => {
         console.log(result);
         res.status(201).json({
-            message: 'Agent created successfully',
+            message: 'Foto berhasil diupdate',
             status: "100"
         });
     })
