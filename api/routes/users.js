@@ -34,6 +34,9 @@ router.post('/signup', UsersController.users_signup);
 //--POST /users/login
 router.post('/login', UsersController.users_login);
 
+//--POST /users/updatefoto/_id
+router.post('/updatefoto/:userId', UsersController.users_update_foto);
+
 //--GET /users
 router.get('/', checkAuth, UsersController.users_get_all);
 

@@ -270,23 +270,74 @@ exports.users_update_name = (req, res, next) => {
             });
         });
     }
-    else if(req.body.fieldUser === 'foto') {
-        User.updateOne({ _id: id}, { $set: {foto: BASE_URL + 'uploads/' + req.files['valueUser'][0].filename}})
-        .exec()
-        .then(result => {
-            console.log(result);
-            res.status(200).json({
-                message: 'Update foto berhasil',
-                "status": "100"
+    // else if(req.body.fieldUser === 'foto') {
+    //     User.updateOne({ _id: id}, { $set: {foto: BASE_URL + 'uploads/' + req.files['valueUser'][0].filename}})
+    //     .exec()
+    //     .then(result => {
+    //         console.log(result);
+    //         res.status(200).json({
+    //             message: 'Update foto berhasil',
+    //             "status": "100"
+    //         });
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //         res.status(500).json({
+    //             error: err
+    //         });
+    //     });
+    // }
+
+
+    
+};
+
+exports.users_update_foto = (req, res, next) => {
+    const id = req.params.userId;
+    User.findById(id)
+    .then(user => {
+        if(!user) {
+            return res.status(404).json({
+                message: 'User not found'
             });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
+        }
+
+        User.updateOne({ _id: id}, { $set: {foto: BASE_URL + 'uploads/' + req.files['foto'][0].filename}}).exec();
+        //return agent.save()
+        console.log(req.files['foto'][0].filename);
+        return
+    })
+    .then(result => {
+        console.log(result);
+        res.status(201).json({
+            message: 'Agent created successfully',
+            status: "100"
         });
-    }
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+    
+    // else if(req.body.fieldUser === 'foto') {
+    //     User.updateOne({ _id: id}, { $set: {foto: BASE_URL + 'uploads/' + req.files['valueUser'][0].filename}})
+    //     .exec()
+    //     .then(result => {
+    //         console.log(result);
+    //         res.status(200).json({
+    //             message: 'Update foto berhasil',
+    //             "status": "100"
+    //         });
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //         res.status(500).json({
+    //             error: err
+    //         });
+    //     });
+    // }
 
 
     
