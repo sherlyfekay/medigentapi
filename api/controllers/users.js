@@ -310,8 +310,7 @@ exports.users_update_foto = (req, res, next) => {
     .then(result => {
         console.log(result);
         res.status(201).json({
-            message: 'Foto berhasil diupdate',
-            status: "100"
+            message: 'Foto berhasil diperbarui'
         });
     })
     .catch(err => {
