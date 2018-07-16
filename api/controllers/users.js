@@ -271,7 +271,7 @@ exports.users_update_name = (req, res, next) => {
         });
     }
     else if(req.body.fieldUser === 'foto') {
-        User.updateOne({ _id: id}, { $set: {foto: req.files['valueUser'][0].filename}})
+        User.updateOne({ _id: id}, { $set: {foto: BASE_URL + 'uploads/' + req.files['valueUser'][0].filename}})
         .exec()
         .then(result => {
             console.log(result);
