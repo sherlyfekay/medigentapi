@@ -305,13 +305,13 @@ exports.users_update_foto = (req, res, next) => {
         User.updateOne({ _id: id}, { $set: {foto: BASE_URL + 'uploads/' + req.file.filename}}).exec();
         //return agent.save()
         console.log(req.file.filename);
-        return
+        return req.file.filename
     })
     .then(result => {
         console.log(result);
         res.status(201).json({
             message: 'Foto berhasil diperbarui',
-            foto: result.foto
+            foto: result
         });
     })
     .catch(err => {
