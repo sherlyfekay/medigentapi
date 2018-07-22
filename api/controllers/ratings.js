@@ -136,10 +136,15 @@ exports.ratings_get_ratings_by_idagent = async (req, res, next) => {
             }
         }
     ]);
-
+    let total = 0
+    for (let i = 0 ; i < rating.length ; i++) {
+        total+=Number(rating[i].rating)
+    }
+    let ratingRata = (total / rating.length).toFixed(1)
     console.log(rating);
     res.status(200).json({
         count: rating.length,
+        ratingValue: ratingRata,
         status: "200",
         ratings: rating
     });
