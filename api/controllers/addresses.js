@@ -6,7 +6,7 @@ const BASE_URL = 'http://localhost:3000/';
 
 exports.addresses_get_all = (req, res, next) => {
     Address.find()
-        .select("_id judul alamat_lengkap tambahan lat lng id_user")
+        .select("_id judul alamat_lengkap tambahan lat lng status id_user")
         .populate('id_user', 'nama_lengkap')
         .exec()
         .then(docs => {
@@ -21,6 +21,7 @@ exports.addresses_get_all = (req, res, next) => {
                         tambahan: doc.tambahan,
                         lat: doc.lat,
                         lng: doc.lng,
+                        status: doc.status,
                         id_user: doc.id_user
                     }
                 })
@@ -51,6 +52,7 @@ exports.addresses_create_address = (req, res, next) =>{
             tambahan: req.body.tambahan,
             lat: req.body.lat,
             lng: req.body.lng,
+            status: 1,
             id_user: req.body.id_user
         });
     
@@ -67,6 +69,7 @@ exports.addresses_create_address = (req, res, next) =>{
                 tambahan: result.tambahan,
                 lat: result.lat,
                 lng: result.lng,
+                status: result.status,
                 id_user: result.id_user
             }
         });
@@ -94,6 +97,7 @@ exports.addresses_get_address = (req, res, next) => {
                     tambahan: doc.tambahan,
                     lat: doc.lat,
                     lng: doc.lng,
+                    status: doc.status,
                     id_user: doc.id_user
                 });
             }
@@ -109,6 +113,40 @@ exports.addresses_get_address = (req, res, next) => {
                 error: err
             });
         });
+};
+
+exports.addresses_get_addresses_by_iduser2 = async (req, res, next) => {
+    let id = req.params.userId;
+
+    let address = await Address
+    .aggregate([
+        {
+            $match: {
+                id_user: new ObjectId(id),
+                status: 1
+                //$or: [{status: 2}, {status: 3}]
+            }
+        },
+        {
+            $project: {
+                _id: 1,
+                judul: 1,
+                alamat_lengkap: 1,
+                tambahan: 1,
+                lat: 1,
+                lng: 1,
+                status: 1,
+                id_user: 1
+            }
+        }
+    ]);
+
+    console.log(address);
+    res.status(200).json({
+        count: address.length,
+        status: "200",
+        addresses: address
+    });
 };
 
 exports.addresses_get_addresses_by_iduser = (req, res, next) => {
@@ -129,6 +167,7 @@ exports.addresses_get_addresses_by_iduser = (req, res, next) => {
                         tambahan: doc.tambahan,
                         lat: doc.lat,
                         lng: doc.lng,
+                        status: doc.status,
                         id_user: doc.id_user
                     }
                 })

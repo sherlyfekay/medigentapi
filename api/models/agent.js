@@ -13,7 +13,6 @@ const agentSchema = mongoose.Schema({
     tambahan: { type: String },
     lat: { type: Number},
     lng: { type: Number},
-    rating: { type: Number},
     spesialis: { type: String },
     sertifikat: { type: String, required: true },
     foto: { type: String, required: true },

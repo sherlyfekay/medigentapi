@@ -7,6 +7,7 @@ const addressSchema = mongoose.Schema({
     tambahan: { type: String },
     lat: { type: Number, required: true},
     lng: { type: Number, required: true },
+    status: { type: Number, required: true },
     id_user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}
 });
 

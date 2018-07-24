@@ -38,7 +38,7 @@ router.post('/', checkAuth, upload.single('foto'), AddressesController.addresses
 router.get('/:addressId', checkAuth, AddressesController.addresses_get_address);
 
 //--GET /addresses/category/iduser
-router.get('/category/:userId', checkAuth, AddressesController.addresses_get_addresses_by_iduser);
+router.get('/category/:userId', checkAuth, AddressesController.addresses_get_addresses_by_iduser2);
 
 //--PATCH /addresses/_id
 router.patch('/:addressId', checkAuth, AddressesController.addresses_update_address);

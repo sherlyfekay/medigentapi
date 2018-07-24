@@ -11,6 +11,7 @@ const patientSchema = mongoose.Schema({
     alat: { type: String, required: true },
     diagnosa: { type: String, required: true },
     kondisi: { type: String, required: true },
+    status: { type: Number, required: true },
     id_user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}
 });
 
