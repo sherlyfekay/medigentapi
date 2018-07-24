@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 const Patient = require('../models/patient');
 const User = require('../models/user');
@@ -6,7 +7,7 @@ const BASE_URL = 'http://localhost:3000/';
 
 exports.patients_get_all = (req, res, next) => {
     Patient.find()
-        .select("_id nama_lengkap jk tgl_lahir berat tinggi hubungan alat diagnosa kondisi id_user")
+        .select("_id nama_lengkap jk tgl_lahir berat tinggi hubungan alat diagnosa kondisi status id_user")
         .populate('id_user', 'nama_lengkap')
         .exec()
         .then(docs => {
@@ -25,6 +26,7 @@ exports.patients_get_all = (req, res, next) => {
                         alat: doc.alat,
                         diagnosa: doc.diagnosa,
                         kondisi: doc.kondisi,
+                        status: doc.status,
                         id_user: doc.id_user
                     }
                 })
@@ -58,6 +60,7 @@ exports.patients_create_patient = (req, res, next) =>{
             alat: req.body.alat,
             diagnosa: req.body.diagnosa,
             kondisi: req.body.kondisi,
+            status: 1,
             id_user: req.body.id_user
         });
 
@@ -97,6 +100,7 @@ exports.patients_get_patient = (req, res, next) => {
                     alat: doc.alat,
                     diagnosa: doc.diagnosa,
                     kondisi: doc.kondisi,
+                    status: doc.status,
                     id_user: doc.id_user
                 });
             }
@@ -136,6 +140,7 @@ exports.patients_get_patients_by_iduser = (req, res, next) => {
                         alat: doc.alat,
                         diagnosa: doc.diagnosa,
                         kondisi: doc.kondisi,
+                        status: doc.status,
                         id_user: doc.id_user
                     }
                 })
@@ -149,6 +154,67 @@ exports.patients_get_patients_by_iduser = (req, res, next) => {
             });
         });
 };
+
+exports.patients_get_patients_by_iduser2 = (req, res, next) => {
+    let id = req.params.userId;
+
+    let patient = await Patient
+    .aggregate([
+        {
+            $match: {
+                id_user: new ObjectId(id),
+                status: 1
+                //$or: [{status: 2}, {status: 3}]
+            }
+        },
+        {
+            $project: {
+                _id: 1,
+                nama_lengkap: 1,
+                jk: 1,
+                tgl_lahir: 1,
+                berat: 1,
+                tinggi: 1,
+                hubungan: 1,
+                alat: 1,
+                diagnosa: 1,
+                kondisi: 1,
+                status: 1,
+                id_user: 1
+
+            }
+        }
+    ]);
+
+    console.log(patient);
+    res.status(200).json({
+        count: patient.length,
+        status: "200",
+        patients: patient
+    });
+};
+
+exports.patients_update_status = (req, res, next) => {
+    const id = req.params.patientId;
+
+    if(req.body.fieldUser === 'status') {
+        Patient.updateOne({ _id: id}, { $set: {status: req.body.valueInt}})
+        .exec()
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                message: 'Data pasien berhasil dihapus'
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+    }
+};
+
 
 exports.patients_update_patient = (req, res, next) => {
     const id = req.params.patientId;

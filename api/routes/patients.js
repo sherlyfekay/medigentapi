@@ -38,10 +38,13 @@ router.post('/', checkAuth, upload.single('foto'), PatientsController.patients_c
 router.get('/:patientId', checkAuth, PatientsController.patients_get_patient);
 
 //--GET /patients/category/id_user
-router.get('/category/:userId', checkAuth, PatientsController.patients_get_patients_by_iduser);
+router.get('/category/:userId', checkAuth, PatientsController.patients_get_patients_by_iduser2);
 
 //--PATCH /patients/_id
 router.patch('/:patientId', checkAuth, PatientsController.patients_update_patient);
+
+//--PATCH /patients/updatestat/_id
+router.patch('/updatestat/:patientId', checkAuth, PatientsController.patients_update_status);
 
 //--DELETE /patients/_id
 router.delete('/:patientId', checkAuth, PatientsController.patients_delete_patient);
