@@ -227,7 +227,7 @@ exports.addresses_update_address = (req, res, next) => {
         });
     }
     else if(req.body.fieldUser === 'status') {
-        Address.updateOne({ _id: id}, { $set: {tambahan: req.body.valueInt}})
+        Address.updateOne({ _id: id}, { $set: {status: req.body.valueInt}})
         .exec()
         .then(result => {
             console.log(result);
