@@ -226,6 +226,22 @@ exports.addresses_update_address = (req, res, next) => {
             });
         });
     }
+    else if(req.body.fieldUser === 'status') {
+        Address.updateOne({ _id: id}, { $set: {tambahan: req.body.valueInt}})
+        .exec()
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                message: 'Alamat berhasil dihapus'
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+    }
 };
 
 exports.addresses_delete_address = (req, res, next) => {
