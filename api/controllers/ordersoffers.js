@@ -581,18 +581,14 @@ exports.oo_delete_oo = (req, res, next) => {
 
 exports.oo_update_status = (req, res, next) => {
     const id = req.params.orderId;
-    const updateOps = {};
-
-    for(const ops of req.body) {
-        updateOps[ops.fieldUser] = ops.valueInt;
-    }
-
-    OrderOffer.update({ _id: id}, { $set: updateOps})
+    
+    if(req.body.fieldUser === 'status') {
+        OrderOffer.updateOne({ _id: id}, { $set: {status: req.body.valueInt}})
         .exec()
         .then(result => {
             console.log(result);
             res.status(200).json({
-                message: 'OrderOffer updated'
+                message: 'Berhasil'
             });
         })
         .catch(err => {
@@ -601,22 +597,19 @@ exports.oo_update_status = (req, res, next) => {
                 error: err
             });
         });
+    }
 };
 
 exports.oo_update_agent = (req, res, next) => {
     const id = req.params.orderId;
-    const updateOps = {};
 
-    for(const ops of req.body) {
-        updateOps[ops.fieldUser] = ops.valueUser;
-    }
-
-    OrderOffer.update({ _id: id}, { $set: updateOps})
+    if(req.body.fieldUser === 'id_agent') {
+        OrderOffer.updateOne({ _id: id}, { $set: {id_agent: req.body.valueUser}})
         .exec()
         .then(result => {
             console.log(result);
             res.status(200).json({
-                message: 'OrderOffer updated'
+                message: 'Berhasil'
             });
         })
         .catch(err => {
@@ -625,4 +618,5 @@ exports.oo_update_agent = (req, res, next) => {
                 error: err
             });
         });
+    }
 };
