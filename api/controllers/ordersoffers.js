@@ -579,12 +579,12 @@ exports.oo_delete_oo = (req, res, next) => {
 //         });
 // };
 
-exports.oo_update_oo = (req, res, next) => {
+exports.oo_update_status = (req, res, next) => {
     const id = req.params.orderId;
     const updateOps = {};
 
     for(const ops of req.body) {
-        updateOps[ops.field] = ops.intValue;
+        updateOps[ops.fieldUser] = ops.valueInt;
     }
 
     OrderOffer.update({ _id: id}, { $set: updateOps})
@@ -603,3 +603,26 @@ exports.oo_update_oo = (req, res, next) => {
         });
 };
 
+exports.oo_update_agent = (req, res, next) => {
+    const id = req.params.orderId;
+    const updateOps = {};
+
+    for(const ops of req.body) {
+        updateOps[ops.fieldUser] = ops.valueUser;
+    }
+
+    OrderOffer.update({ _id: id}, { $set: updateOps})
+        .exec()
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                message: 'OrderOffer updated'
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+};

@@ -58,8 +58,11 @@ router.get('/get/:ooId', checkAuth, OrdersOffersController.oo_get_oo_by_idoo2);
 // //--GET /orders/_id
 // router.get('/:orderId', checkAuth, OrdersController.orders_get_order);
 
-//--PATCH /orders/_id
-router.patch('/:orderId', checkAuth, OrdersOffersController.oo_update_oo);
+//--PATCH /ordersoffers/updatestat/_id
+router.patch('/updatestat/:orderId', checkAuth, OrdersOffersController.oo_update_status);
+
+//--PATCH /ordersoffers/updatestat/_id
+router.patch('/updateagent/:orderId', checkAuth, OrdersOffersController.oo_update_agent);
 
 //--DELETE /orders/_id
 router.delete('/:ooId', checkAuth, OrdersOffersController.oo_delete_oo);
