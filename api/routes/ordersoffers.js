@@ -49,6 +49,9 @@ router.get('/kategori/:agentId', checkAuth, OrdersOffersController.oo_get_oo_by_
 //--GET /ordersoffers/daftarorder
 router.get('/daftarorder', checkAuth, OrdersOffersController.oo_get_daftaroo);
 
+//--GET /ordersoffers/daftaroo/id_agent
+router.get('/daftaroo/:agentId', checkAuth, OrdersOffersController.oo_get_daftaroo_filter);
+
 //--GET /ordersoffers/ooid
 router.get('/:ooId', checkAuth, OrdersOffersController.oo_get_oo_by_idoo);
 
