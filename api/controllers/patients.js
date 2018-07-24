@@ -155,7 +155,7 @@ exports.patients_get_patients_by_iduser = (req, res, next) => {
         });
 };
 
-exports.patients_get_patients_by_iduser2 = (req, res, next) => {
+exports.patients_get_patients_by_iduser2 = async (req, res, next) => {
     let id = req.params.userId;
 
     let patient = await Patient
