@@ -584,13 +584,15 @@ exports.oo_get_daftaroo_filter_order = async (req, res, next) => {
 };
 
 exports.oo_get_daftaroo_filter_offer = async (req, res, next) => {
+    let id = req.params.roleId;
 
     let history = await OrderOffer
     .aggregate([
         {
             $match: {
                jenis: 2,
-               status: 1
+               status: 1,
+               id_role: new ObjectId(id)
             }
         },
         {

@@ -53,7 +53,7 @@ router.get('/daftarorder', checkAuth, OrdersOffersController.oo_get_daftaroo);
 router.get('/filterorder/:agentId', checkAuth, OrdersOffersController.oo_get_daftaroo_filter_order);
 
 //--GET /ordersoffers/filteroffer/
-router.get('/filteroffer', checkAuth, OrdersOffersController.oo_get_daftaroo_filter_offer);
+router.get('/filteroffer/:roleId', checkAuth, OrdersOffersController.oo_get_daftaroo_filter_offer);
 
 //--GET /ordersoffers/ooid
 router.get('/:ooId', checkAuth, OrdersOffersController.oo_get_oo_by_idoo);
