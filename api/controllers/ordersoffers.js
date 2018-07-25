@@ -522,7 +522,7 @@ exports.oo_get_daftaroo_filter_order = async (req, res, next) => {
     res.status(200).json({
         count: history.length,
         status: "200",
-        orders: history
+        histories: history
     });
 };
 
@@ -577,7 +577,7 @@ exports.oo_get_daftaroo_filter_offer = async (req, res, next) => {
     res.status(200).json({
         count: history.length,
         status: "200",
-        orders: history
+        histories: history
     });
 };
 
