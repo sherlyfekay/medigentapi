@@ -261,6 +261,47 @@ exports.agents_get_agent = async (req, res, next) => {
         });
 };
 
+exports.agents_get_agent_by_idrole = async (req, res, next) => {
+    let id = req.params.roleId;
+
+    let agent = await Agent
+    .aggregate([
+        {
+            $match: {
+                id_role: new ObjectId(id)
+            }
+        },
+        {
+            $project: {
+                _id: 1,
+                nama_lengkap: 1,
+                email: 1,
+                password: 1,
+                telepon: 1,
+                jk: 1,
+                tgl_lahir: 1,
+                judul: 1,
+                alamat_lengkap: 1,
+                tambahan: 1,
+                lat: 1,
+                lng: 1,
+                rating: 1,
+                spesialis: 1,
+                sertifikat: 1,
+                foto: 1,
+                id_role: 1
+            }
+        }
+    ]);
+
+    console.log(agent);
+    res.status(200).json({
+        count: agent.length,
+        status: "200",
+        agents: agent
+    });
+};
+
 exports.agents_update_agent = (req, res, next) => {
     const id = req.params.agentId;
     const updateOps = {};

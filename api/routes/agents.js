@@ -45,6 +45,9 @@ router.post('/', checkAuth, agentUpload, AgentsController.agents_create_agent);
 //--GET /agents/_id
 router.get('/:agentId', checkAuth, AgentsController.agents_get_agent);
 
+//--GET /agents/role/id_role
+router.get('/role/:roleId', checkAuth, AgentsController.agents_get_agent_by_idrole);
+
 //--PATCH /agents/_id
 router.patch('/:agentId', checkAuth, AgentsController.agents_update_name);
 
