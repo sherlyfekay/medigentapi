@@ -263,9 +263,6 @@ exports.oo_get_oo_by_iduser14 = async (req, res, next) => {
             }
         },
         {
-            $sort: {created_at: -1}
-        },
-        {
             $lookup: {
                 from: 'roles',
                 localField: 'id_role',
@@ -308,8 +305,16 @@ exports.oo_get_oo_by_iduser14 = async (req, res, next) => {
                 diagnosa: '$patient.diagnosa',
                 alamat_lengkap: '$address.alamat_lengkap',
                 jml_shift: 1,
-                created_at: 1
+                created_at: 1,
+                created_at_sort: {
+                    $dateFromString: {
+                        dateString: '$created_at'
+                    }
+                }
             }
+        },
+        {
+            $sort: {created_at_sort: -1}
         }
     ]);
 
@@ -334,7 +339,15 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
             }
         },
         {
-            $sort: {created_at: -1}
+            $lookup: {
+                from: 'roles',
+                localField: 'agent.id_role',
+                foreignField: '_id',
+                as: 'role'
+            }
+        },
+        {
+            $unwind: '$role'
         },
         {
             $lookup: {
@@ -377,8 +390,17 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
                 nama_pasien: '$patient.nama_lengkap',
                 alamat_lengkap: '$address.alamat_lengkap',
                 telepon: '$user.telepon',
-                created_at: 1
+                nama_role: '$role.nama_role',
+                created_at: 1,
+                created_at_sort: {
+                    $dateFromString: {
+                        dateString: '$created_at'
+                    }
+                }
             }
+        },
+        {
+            $sort: {created_at_sort: -1}
         }
     ]);
 
