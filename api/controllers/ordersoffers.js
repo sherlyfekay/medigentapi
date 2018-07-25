@@ -483,6 +483,17 @@ exports.oo_get_daftaroo_filter_order = async (req, res, next) => {
         },
         {
             $lookup: {
+                from: 'users',
+                localField: 'id_user',
+                foreignField: '_id',
+                as: 'user'
+            }
+        },
+        {
+            $unwind: '$user'
+        },
+        {
+            $lookup: {
                 from: 'patients',
                 localField: 'id_patient',
                 foreignField: '_id',
@@ -507,10 +518,11 @@ exports.oo_get_daftaroo_filter_order = async (req, res, next) => {
             $project: {
                 _id: 1,
                 status: 1,
-                jenis: 1,
+                jenis: {$cond: [{$eq:['$jenis', 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
                 jk: '$patient.jk',
                 diagnosa: '$patient.diagnosa',
+                telepon: '$user.telepon',
                 alamat: '$address.alamat_lengkap',
                 lat: '$address.lat',
                 lng: '$address.lng'
@@ -538,6 +550,17 @@ exports.oo_get_daftaroo_filter_offer = async (req, res, next) => {
         },
         {
             $lookup: {
+                from: 'users',
+                localField: 'id_user',
+                foreignField: '_id',
+                as: 'user'
+            }
+        },
+        {
+            $unwind: '$user'
+        },
+        {
+            $lookup: {
                 from: 'patients',
                 localField: 'id_patient',
                 foreignField: '_id',
@@ -562,10 +585,11 @@ exports.oo_get_daftaroo_filter_offer = async (req, res, next) => {
             $project: {
                 _id: 1,
                 status: 1,
-                jenis: 1,
+                jenis: {$cond: [{$eq:['$jenis', 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
                 jk: '$patient.jk',
                 diagnosa: '$patient.diagnosa',
+                telepon: '$user.telepon',
                 alamat: '$address.alamat_lengkap',
                 lat: '$address.lat',
                 lng: '$address.lng'
