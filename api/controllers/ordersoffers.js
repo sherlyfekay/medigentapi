@@ -294,11 +294,23 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
     .aggregate([
         {
             $match: {
-                id_agent: new ObjectId(id)
+                id_agent: new ObjectId(id),
+                $or: [{status: 2}, {status: 3}]
             }
         },
         {
             $sort: {created_at: -1}
+        },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'id_user',
+                foreignField: '_id',
+                as: 'user'
+            }
+        },
+        {
+            $unwind: '$user'
         },
         {
             $lookup: {
@@ -329,6 +341,7 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
                 jenis: {$cond: [{$eq:['$jenis', 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
                 alamat_lengkap: '$address.alamat_lengkap',
+                telepon: '$user.telepon',
                 created_at: 1
             }
         }
