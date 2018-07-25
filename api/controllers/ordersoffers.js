@@ -450,7 +450,7 @@ exports.oo_get_oo_by_idoo = async (req, res, next) => {
                 jml_shift: 1,
                 created_at: 1,
                 nama_agent: '$agent.nama_lengkap',
-                role: '$role.nama_role',
+                nama_role: '$role.nama_role',
                 lat: '$address.lat',
                 lng: '$address.lng'
             }
