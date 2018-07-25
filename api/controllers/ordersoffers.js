@@ -229,12 +229,16 @@ exports.oo_get_oo_by_iduser23 = async (req, res, next) => {
                 alamat_lengkap: '$address.alamat_lengkap',
                 nama_agent: '$agent.nama_lengkap',
                 role: '$role.nama_role',
-                created_at: {
+                created_at: 1,
+                created_at_sort: {
                     $dateFromString: {
                         dateString: '$created_at'
                     }
                 }
             }
+        },
+        {
+            $sort: {created_at_sort: -1}
         }
     ]);
 
