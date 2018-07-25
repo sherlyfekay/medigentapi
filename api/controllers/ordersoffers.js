@@ -341,7 +341,7 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
         {
             $lookup: {
                 from: 'roles',
-                localField: 'agent.id_role',
+                localField: 'id_role',
                 foreignField: '_id',
                 as: 'role'
             }
