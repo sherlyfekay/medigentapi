@@ -469,17 +469,71 @@ exports.oo_get_oo_by_idoo2 = async (req, res, next) => {
     res.status(200).json(history[0]);
 };
 
-exports.oo_get_daftaroo_filter = async (req, res, next) => {
+exports.oo_get_daftaroo_filter_order = async (req, res, next) => {
     let id = req.params.agentId;
 
     let history = await OrderOffer
     .aggregate([
         {
             $match: {
-               $and: [
-                   {jenis: 1, status: 1, id_agent: new ObjectId(id)},
-                   {jenis: 2, status: 1}
-               ]
+               jenis: 1,
+               status: 1,
+               id_agent: new ObjectId(id)
+            }
+        },
+        {
+            $lookup: {
+                from: 'patients',
+                localField: 'id_patient',
+                foreignField: '_id',
+                as: 'patient'
+            }
+        },
+        {
+            $unwind: '$patient'
+        },
+        {
+            $lookup: {
+                from: 'addresses',
+                localField: 'id_address',
+                foreignField: '_id',
+                as: 'address'
+            }
+        },
+        {
+            $unwind: '$address'
+        },
+        {
+            $project: {
+                _id: 1,
+                status: 1,
+                jenis: 1,
+                nama_pasien: '$patient.nama_lengkap',
+                jk: '$patient.jk',
+                diagnosa: '$patient.diagnosa',
+                alamat: '$address.alamat_lengkap',
+                lat: '$address.lat',
+                lng: '$address.lng'
+            }
+        }
+    ]);
+
+    console.log(history);
+    res.status(200).json({
+        count: history.length,
+        status: "200",
+        orders: history
+    });
+};
+
+exports.oo_get_daftaroo_filter_offer = async (req, res, next) => {
+
+    let history = await OrderOffer
+    .aggregate([
+        {
+            $match: {
+               jenis: 2,
+               status: 1
             }
         },
         {
