@@ -232,14 +232,10 @@ exports.oo_get_oo_by_iduser23 = async (req, res, next) => {
                 created_at: {
                     $dateFromString: {
                         dateString: '$created_at',
-                        format: '%d-%m-%Y',
-                        onError: '$created_at'
+                        format: '%d-%m-%Y'
                     }
                 }
             }
-        },
-        {
-            $sort: {created_at: -1}
         }
     ]);
 
