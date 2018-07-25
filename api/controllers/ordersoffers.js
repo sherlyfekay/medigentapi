@@ -231,8 +231,7 @@ exports.oo_get_oo_by_iduser23 = async (req, res, next) => {
                 role: '$role.nama_role',
                 created_at: {
                     $dateFromString: {
-                        dateString: '$created_at',
-                        format: '%d-%m-%Y'
+                        dateString: '$created_at'
                     }
                 }
             }
