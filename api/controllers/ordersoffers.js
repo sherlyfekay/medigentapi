@@ -163,19 +163,6 @@ exports.oo_get_oo_by_iduser23 = async (req, res, next) => {
             }
         },
         {
-            $project: {
-                created_at: {
-                    $dateFromString: {
-                        dateString: '$created_at',
-                        format: "%d-%m-%Y"
-                    }
-                }
-            }
-        },
-        {
-            $sort: {created_at: -1}
-        },
-        {
             $lookup: {
                 from: 'roles',
                 localField: 'id_role',
@@ -239,11 +226,19 @@ exports.oo_get_oo_by_iduser23 = async (req, res, next) => {
                 nama_role: '$role.nama_role',
                 diagnosa: '$patient.diagnosa',
                 jml_shift: 1,
-                created_at: 1,
                 alamat_lengkap: '$address.alamat_lengkap',
                 nama_agent: '$agent.nama_lengkap',
-                role: '$role.nama_role'
+                role: '$role.nama_role',
+                created_at: {
+                    $dateFromString: {
+                        dateString: '$created_at',
+                        format: "%d-%m-%Y"
+                    }
+                }
             }
+        },
+        {
+            $sort: {created_at: -1}
         }
     ]);
 
