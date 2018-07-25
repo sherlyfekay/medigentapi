@@ -11,7 +11,7 @@ const BASE_URL = 'http://localhost:3000/';
 
 exports.oo_get_all = (req, res, next) => {
     OrderOffer.find()
-        .select("_id jenis id_user id_patient id_address jk_agen tgl_mulai jns_layanan jml_shift biaya info status created_at id_agent")
+        .select("_id jenis id_user id_patient id_address id_role jk_agen tgl_mulai jns_layanan jml_shift biaya info status created_at id_agent")
         .populate({path: 'id_agent', model: Agent, select: 'nama_lengkap id_role'})
         .populate({path: 'id_patient', model: Patient, select: 'nama_lengkap'})
         //.populate({path: 'id_patient', model: Patient, select: 'nama_lengkap id_user', populate: {path: 'id_user', model: User, select: 'nama_lengkap'}})
@@ -25,6 +25,7 @@ exports.oo_get_all = (req, res, next) => {
                         _id: doc._id,
                         jenis: doc.jenis,
                         id_user: doc.id_user,
+                        id_role: doc.id_role,
                         id_patient: doc.id_patient,
                         id_address: doc.id_address,
                         jk_agen: doc.jk_agen,
@@ -53,10 +54,11 @@ exports.oo_create_order = async (req, res, next) =>{
     let checkUser = await User.findById(req.body.id_user);
     let checkAddress = await Address.findById(req.body.id_address);
     let checkPatient = await Patient.findById(req.body.id_patient);
+    let checkRole = await Role.findById(req.body.id_role);
 
-    if(checkUser === null  || checkAddress === null || checkPatient === null) {
+    if(checkUser === null  || checkAddress === null || checkPatient === null || checkRole === null) {
         return res.status(201).json({
-            message: 'User, Address, or Patient cant be found',
+            message: 'User, Address, Role, or Patient cant be found',
             status: "101"
         });
     }
@@ -71,6 +73,7 @@ exports.oo_create_order = async (req, res, next) =>{
             tgl_mulai: req.body.tgl_mulai,
             jns_layanan: req.body.jns_layanan,
             jml_shift: req.body.jml_shift,
+            id_role: req.body.id_role,
             // biaya: req.body.biaya,
             // info: req.body.info,
             status: req.body.status,
@@ -101,10 +104,11 @@ exports.oo_create_offer = async (req, res, next) =>{
     let checkUser = await User.findById(req.body.id_user);
     let checkAddress = await Address.findById(req.body.id_address);
     let checkPatient = await Patient.findById(req.body.id_patient);
+    let checkRole = await Role.findById(req.body.id_role);
 
-    if(checkUser === null  || checkAddress === null || checkPatient === null) {
+    if(checkUser === null  || checkAddress === null || checkPatient === null || checkRole === null) {
         return res.status(201).json({
-            message: 'User, Address, or Patient cant be found',
+            message: 'User, Address, Role, or Patient cant be found',
             status: "101"
         });
     }
@@ -117,6 +121,7 @@ exports.oo_create_offer = async (req, res, next) =>{
             id_address: req.body.id_address,
             jk_agen: req.body.jk_agen,
             tgl_mulai: req.body.tgl_mulai,
+            id_role: req.body.id_role,
             //jns_layanan: req.body.jns_layanan,
             jml_shift: req.body.jml_shift,
             biaya: req.body.biaya,
@@ -159,6 +164,17 @@ exports.oo_get_oo_by_iduser23 = async (req, res, next) => {
         },
         {
             $sort: {created_at: -1}
+        },
+        {
+            $lookup: {
+                from: 'roles',
+                localField: 'id_role',
+                foreignField: '_id',
+                as: 'role'
+            }
+        },
+        {
+            $unwind: '$role'
         },
         {
             $lookup: {
@@ -210,6 +226,7 @@ exports.oo_get_oo_by_iduser23 = async (req, res, next) => {
                 status: 1,
                 jenis:  {$cond: [{$eq:['$jenis', 1]}, 'Pemesanan', 'Penawaran']},
                 nama_pasien: '$patient.nama_lengkap',
+                nama_role: '$role.nama_role',
                 diagnosa: '$patient.diagnosa',
                 jml_shift: 1,
                 created_at: 1,
@@ -245,6 +262,17 @@ exports.oo_get_oo_by_iduser14 = async (req, res, next) => {
         },
         {
             $lookup: {
+                from: 'roles',
+                localField: 'id_role',
+                foreignField: '_id',
+                as: 'role'
+            }
+        },
+        {
+            $unwind: '$role'
+        },
+        {
+            $lookup: {
                 from: 'patients',
                 localField: 'id_patient',
                 foreignField: '_id',
@@ -270,6 +298,7 @@ exports.oo_get_oo_by_iduser14 = async (req, res, next) => {
                 _id: 1,
                 status: 1,
                 jenis:  {$cond: [{$eq:['$jenis', 1]}, 'Pemesanan', 'Penawaran']},
+                nama_role: '$role.nama_role',
                 nama_pasien: '$patient.nama_lengkap',
                 diagnosa: '$patient.diagnosa',
                 alamat_lengkap: '$address.alamat_lengkap',
@@ -287,6 +316,7 @@ exports.oo_get_oo_by_iduser14 = async (req, res, next) => {
     });
 };
 
+//belum dicek
 exports.oo_get_oo_by_idagent = async (req, res, next) => {
     let id = req.params.agentId;
 
@@ -355,6 +385,7 @@ exports.oo_get_oo_by_idagent = async (req, res, next) => {
     });
 };
 
+//belum dicek
 exports.oo_get_oo_by_idoo = async (req, res, next) => {
     let id = req.params.ooId;
 
@@ -430,6 +461,7 @@ exports.oo_get_oo_by_idoo = async (req, res, next) => {
     res.status(200).json(history[0]);
 };
 
+//belum dicek
 exports.oo_get_oo_by_idoo2 = async (req, res, next) => {
     let id = req.params.ooId;
 
