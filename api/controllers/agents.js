@@ -267,7 +267,7 @@ exports.agents_get_agent = async (req, res, next) => {
     ]);
 
     console.log(agent);
-    res.status(200).json(agent);
+    res.status(200).json({agent: agent});
 
     // Agent.findById(id)
     //     .exec()
