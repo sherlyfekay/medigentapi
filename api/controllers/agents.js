@@ -224,42 +224,87 @@ exports.agents_create_agent = (req, res, next) =>{
 exports.agents_get_agent = async (req, res, next) => {
     const id = req.params.agentId;
 
-    Agent.findById(id)
-        .exec()
-        .then(doc => {
-            if(doc) {
-                res.status(200).json({
-                    _id: doc._id,
-                    nama_lengkap: doc.nama_lengkap,
-                    email: doc.email,
-                    password: doc.password,
-                    telepon: doc.telepon,
-                    jk: doc.jk,
-                    tgl_lahir: doc.tgl_lahir,
-                    judul: doc.judul,
-                    alamat_lengkap: doc.alamat_lengkap,
-                    tambahan: doc.tambahan,
-                    lat: doc.lat,
-                    lng: doc.lng,
-                    rating: doc.rating,
-                    spesialis: doc.spesialis,
-                    sertifikat: doc.sertifikat,
-                    foto: doc.foto,
-                    id_role: doc.id_role
-                });
+    let agent = await Agent
+    .aggregate([
+        {
+            $match: {
+                _id: new ObjectId(id)
             }
-            else {
-                res.status(404).json({
-                    message: 'Agent not found'
-                });
+        },
+        {
+            $lookup: {
+                from: 'roles',
+                localField: 'id_role',
+                foreignField: '_id',
+                as: 'role'
             }
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
-        });
+        },
+        {
+            $unwind: '$role'
+        },
+        {
+            $project: {
+                _id: 1,
+                nama_lengkap: 1,
+                email: 1,
+                password: 1,
+                telepon: 1,
+                jk: 1,
+                tgl_lahir: 1,
+                judul: 1,
+                alamat_lengkap: 1,
+                tambahan: 1,
+                lat: 1,
+                lng: 1,
+                rating: 1,
+                spesialis: 1,
+                sertifikat: 1,
+                foto: 1,
+                id_role: 1,
+                nama_role: '$role.nama_role'
+            }
+        }
+    ]);
+
+    console.log(agent);
+    res.status(200).json(agent);
+
+    // Agent.findById(id)
+    //     .exec()
+    //     .then(doc => {
+    //         if(doc) {
+    //             res.status(200).json({
+    //                 _id: doc._id,
+    //                 nama_lengkap: doc.nama_lengkap,
+    //                 email: doc.email,
+    //                 password: doc.password,
+    //                 telepon: doc.telepon,
+    //                 jk: doc.jk,
+    //                 tgl_lahir: doc.tgl_lahir,
+    //                 judul: doc.judul,
+    //                 alamat_lengkap: doc.alamat_lengkap,
+    //                 tambahan: doc.tambahan,
+    //                 lat: doc.lat,
+    //                 lng: doc.lng,
+    //                 rating: doc.rating,
+    //                 spesialis: doc.spesialis,
+    //                 sertifikat: doc.sertifikat,
+    //                 foto: doc.foto,
+    //                 id_role: doc.id_role
+    //             });
+    //         }
+    //         else {
+    //             res.status(404).json({
+    //                 message: 'Agent not found'
+    //             });
+    //         }
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //         res.status(500).json({
+    //             error: err
+    //         });
+    //     });
 };
 
 exports.agents_get_agent_by_idrole = async (req, res, next) => {
