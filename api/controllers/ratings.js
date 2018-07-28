@@ -136,6 +136,39 @@ exports.ratings_get_ratings_by_idagent = async (req, res, next) => {
             }
         }
     ]);
+
+    let rating5 = await Rating
+    .aggregate([
+        {
+            $match: {
+                id_agent: new ObjectId(id),
+                rating: 5
+            }
+        },
+        {
+            $lookup: {
+                from: 'orderoffers',
+                localField: 'id_orderoffer',
+                foreignField: '_id',
+                as: 'oo'
+            }
+        },
+        {
+            $unwind: '$oo'
+        },
+        {
+            $project: {
+                _id: 1,
+                rating: 1,
+                tgl: 1,
+                komentar: 1,
+                jenis: {$cond: [{$eq:['$oo.jenis', 1]}, 'Pemesanan', 'Penawaran']}
+            }
+        }
+    ]);
+
+
+
     let total = 0
     for (let i = 0 ; i < rating.length ; i++) {
         total+=Number(rating[i].rating)
@@ -146,7 +179,9 @@ exports.ratings_get_ratings_by_idagent = async (req, res, next) => {
         count: rating.length,
         ratingValue: ratingRata,
         status: "200",
-        ratings: rating
+        ratings: rating,
+        countRating5: rating5.length,
+        rating5: rating5
     });
 };
 
