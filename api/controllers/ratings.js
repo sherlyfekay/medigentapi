@@ -167,13 +167,135 @@ exports.ratings_get_ratings_by_idagent = async (req, res, next) => {
         }
     ]);
 
+    let rating4 = await Rating
+    .aggregate([
+        {
+            $match: {
+                id_agent: new ObjectId(id),
+                rating: 4
+            }
+        },
+        {
+            $lookup: {
+                from: 'orderoffers',
+                localField: 'id_orderoffer',
+                foreignField: '_id',
+                as: 'oo'
+            }
+        },
+        {
+            $unwind: '$oo'
+        },
+        {
+            $project: {
+                _id: 1,
+                rating: 1,
+                tgl: 1,
+                komentar: 1,
+                jenis: {$cond: [{$eq:['$oo.jenis', 1]}, 'Pemesanan', 'Penawaran']}
+            }
+        }
+    ]);
+
+    let rating3 = await Rating
+    .aggregate([
+        {
+            $match: {
+                id_agent: new ObjectId(id),
+                rating: 3
+            }
+        },
+        {
+            $lookup: {
+                from: 'orderoffers',
+                localField: 'id_orderoffer',
+                foreignField: '_id',
+                as: 'oo'
+            }
+        },
+        {
+            $unwind: '$oo'
+        },
+        {
+            $project: {
+                _id: 1,
+                rating: 1,
+                tgl: 1,
+                komentar: 1,
+                jenis: {$cond: [{$eq:['$oo.jenis', 1]}, 'Pemesanan', 'Penawaran']}
+            }
+        }
+    ]);
+
+    let rating2 = await Rating
+    .aggregate([
+        {
+            $match: {
+                id_agent: new ObjectId(id),
+                rating: 2
+            }
+        },
+        {
+            $lookup: {
+                from: 'orderoffers',
+                localField: 'id_orderoffer',
+                foreignField: '_id',
+                as: 'oo'
+            }
+        },
+        {
+            $unwind: '$oo'
+        },
+        {
+            $project: {
+                _id: 1,
+                rating: 1,
+                tgl: 1,
+                komentar: 1,
+                jenis: {$cond: [{$eq:['$oo.jenis', 1]}, 'Pemesanan', 'Penawaran']}
+            }
+        }
+    ]);
+
+    let rating1 = await Rating
+    .aggregate([
+        {
+            $match: {
+                id_agent: new ObjectId(id),
+                rating: 1
+            }
+        },
+        {
+            $lookup: {
+                from: 'orderoffers',
+                localField: 'id_orderoffer',
+                foreignField: '_id',
+                as: 'oo'
+            }
+        },
+        {
+            $unwind: '$oo'
+        },
+        {
+            $project: {
+                _id: 1,
+                rating: 1,
+                tgl: 1,
+                komentar: 1,
+                jenis: {$cond: [{$eq:['$oo.jenis', 1]}, 'Pemesanan', 'Penawaran']}
+            }
+        }
+    ]);
+
 
 
     let total = 0
+    let ratingRata = 0;
     for (let i = 0 ; i < rating.length ; i++) {
         total+=Number(rating[i].rating)
     }
-    let ratingRata = (total / rating.length).toFixed(1)
+    ratingRata = (total / rating.length).toFixed(1)
+
     console.log(rating);
     res.status(200).json({
         count: rating.length,
@@ -181,7 +303,15 @@ exports.ratings_get_ratings_by_idagent = async (req, res, next) => {
         status: "200",
         ratings: rating,
         countRating5: rating5.length,
-        rating5: rating5
+        rating5: rating5,
+        countRating4: rating4.length,
+        rating4: rating4,
+        countRating3: rating3.length,
+        rating3: rating3,
+        countRating2: rating2.length,
+        rating2: rating2,
+        countRating1: rating1.length,
+        rating1: rating1,
     });
 };
 
