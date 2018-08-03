@@ -6,7 +6,7 @@ const BASE_URL = 'http://localhost:3000/';
 
 exports.shifts_get_all = (req, res, next) => {
     Shift.find()
-        .select("_id tanggal jam tindakan kondisi id_orderoffer")
+        .select("_id tanggal jam status tindakan kondisi id_orderoffer")
         .exec()
         .then(docs => {
             const response = {
@@ -17,6 +17,7 @@ exports.shifts_get_all = (req, res, next) => {
                         _id: doc._id,
                         tanggal: doc.tanggal,
                         jam: doc.jam,
+                        status: doc.status,
                         tindakan: doc.tindakan,
                         kondisi: doc.kondisi,
                         id_orderoffer: doc.id_orderoffer
@@ -46,6 +47,7 @@ exports.shifts_create_shift = (req, res, next) =>{
             _id: new mongoose.Types.ObjectId(),
             tanggal: req.body.tanggal,
             jam: req.body.jam,
+            status: req.body.status,
             id_orderoffer: req.body.id_orderoffer
         });
     
@@ -76,6 +78,7 @@ exports.shifts_get_shift = (req, res, next) => {
                     _id: doc._id,
                     tanggal: doc.tanggal,
                     jam: doc.jam,
+                    status: doc.status,
                     tindakan: doc.tindakan,
                     kondisi: doc.kondisi,
                     id_orderoffer: doc.id_orderoffer
@@ -110,6 +113,7 @@ exports.shifts_get_shifts_by_idoo = (req, res, next) => {
                         _id: doc._id,
                         tanggal: doc.tanggal,
                         jam: doc.jam,
+                        status: doc.status,
                         tindakan: doc.tindakan,
                         kondisi: doc.kondisi,
                         id_orderoffer: doc.id_orderoffer
