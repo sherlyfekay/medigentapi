@@ -98,7 +98,7 @@ exports.shifts_get_shift = (req, res, next) => {
         });
 };
 
-exports.shifts_get_shifts_by_idoo = (req, res, next) => {
+exports.shifts_get_shifts_by_idoo = async (req, res, next) => {
     const id = req.params.orderofferId;
 
     let shift = await Shift
