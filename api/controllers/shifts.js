@@ -158,6 +158,38 @@ exports.shifts_get_shifts_by_idoo = async (req, res, next) => {
     //     });
 };
 
+exports.shifts_get_shifts_by_idoo2 = async (req, res, next) => {
+    const id = req.params.orderofferId;
+
+    let shift = await Shift
+    .aggregate([
+        {
+            $match: {
+               status: 0,
+               id_orderoffer: new ObjectId(id)
+            }
+        },
+        {
+            $project: {
+                _id: 1,
+                tanggal: 1,
+                jam: 1,
+                status: 1,
+                tindakan: 1,
+                kondisi: 1,
+                id_orderoffer: 1
+            }
+        }
+    ]);
+
+    console.log(shift);
+    res.status(200).json({
+        count: shift.length,
+        status: "200",
+        shifts: shift
+    });
+};
+
 exports.shifts_update_shift = (req, res, next) => {
     const id = req.params.shiftId;
     const updateOps = {};

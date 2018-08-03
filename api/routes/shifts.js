@@ -37,8 +37,13 @@ router.post('/', checkAuth, upload.single('foto'), ShiftsController.shifts_creat
 //--GET /shifts/_id
 router.get('/:shiftId', checkAuth, ShiftsController.shifts_get_shift);
 
+//status 1 = sudah ditangani
 //--GET /shifts/category/id_orderoffer
 router.get('/category/:orderofferId', checkAuth, ShiftsController.shifts_get_shifts_by_idoo);
+
+//status 0 = belum ditangani
+//--GET /shifts/kategori/id_orderoffer
+router.get('/kategori/:orderofferId', checkAuth, ShiftsController.shifts_get_shifts_by_idoo2);
 
 //--PATCH /shifts/_id
 router.patch('/:shiftId', checkAuth, ShiftsController.shifts_update_shift);
