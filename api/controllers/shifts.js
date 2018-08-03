@@ -101,33 +101,61 @@ exports.shifts_get_shift = (req, res, next) => {
 exports.shifts_get_shifts_by_idoo = (req, res, next) => {
     const id = req.params.orderofferId;
 
-    Shift.find()
-        .where('id_orderoffer').equals(id)
-        .exec()
-        .then(docs => {
-            const response = {
-                count: docs.length,
-                status: "200",
-                shifts: docs.map(doc => {
-                    return {
-                        _id: doc._id,
-                        tanggal: doc.tanggal,
-                        jam: doc.jam,
-                        status: doc.status,
-                        tindakan: doc.tindakan,
-                        kondisi: doc.kondisi,
-                        id_orderoffer: doc.id_orderoffer
-                    }
-                })
-            };
-            res.status(200).json(response);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
-        });
+    let shift = await Shift
+    .aggregate([
+        {
+            $match: {
+               status: 1,
+               id_orderoffer: new ObjectId(id)
+            }
+        },
+        {
+            $project: {
+                _id: 1,
+                tanggal: 1,
+                jam: 1,
+                status: 1,
+                tindakan: 1,
+                kondisi: 1,
+                id_orderoffer: 1
+            }
+        }
+    ]);
+
+    console.log(shift);
+    res.status(200).json({
+        count: shift.length,
+        status: "200",
+        shifts: shift
+    });
+
+    // Shift.find()
+    //     .where('id_orderoffer').equals(id)
+    //     .exec()
+    //     .then(docs => {
+    //         const response = {
+    //             count: docs.length,
+    //             status: "200",
+    //             shifts: docs.map(doc => {
+    //                 return {
+    //                     _id: doc._id,
+    //                     tanggal: doc.tanggal,
+    //                     jam: doc.jam,
+    //                     status: doc.status,
+    //                     tindakan: doc.tindakan,
+    //                     kondisi: doc.kondisi,
+    //                     id_orderoffer: doc.id_orderoffer
+    //                 }
+    //             })
+    //         };
+    //         res.status(200).json(response);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //         res.status(500).json({
+    //             error: err
+    //         });
+    //     });
 };
 
 exports.shifts_update_shift = (req, res, next) => {
