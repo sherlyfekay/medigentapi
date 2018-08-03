@@ -33,7 +33,7 @@ exports.agents_signup = (req, res, next) =>{
                         telepon: req.body.telepon,
                         jk: req.body.jk,
                         tgl_lahir: req.body.tgl_lahir,
-                        alamat: req.body.alamat,
+                        status: 0,
                         spesialis: req.body.spesialis,
                         sertifikat: BASE_URL + 'uploads/' + req.files['sertifikat'][0].filename,
                         foto: BASE_URL + 'uploads/' + req.files['foto'][0].filename,
@@ -119,7 +119,7 @@ exports.agents_login = (req, res, next) => {
 
 exports.agents_get_all = (req, res, next) => {
     Agent.find()
-        .select("_id nama_lengkap email password telepon jk tgl_lahir judul alamat_lengkap tambahan lat lng rating spesialis sertifikat foto id_role")
+        .select("_id nama_lengkap email password telepon jk tgl_lahir judul alamat_lengkap tambahan lat lng rating spesialis sertifikat foto biaya status id_role")
         // .populate('id_role', 'nama_role')
         .exec()
         .then(docs => {
@@ -144,6 +144,8 @@ exports.agents_get_all = (req, res, next) => {
                         spesialis: doc.spesialis,
                         sertifikat: doc.sertifikat,
                         foto: doc.foto,
+                        biaya: doc.biaya,
+                        status: doc.status,
                         id_role: doc.id_role
                     }
                 })
@@ -184,6 +186,8 @@ exports.agents_create_agent = (req, res, next) =>{
             spesialis: req.body.spesialis,
             sertifikat: BASE_URL + 'uploads/' + req.files['sertifikat'][0].filename,
             foto: BASE_URL + 'uploads/' + req.files['foto'][0].filename,
+            biaya: req.body.biaya,
+            status: req.body.status,
             id_role: req.body.id_role
         });
         return agent.save()
@@ -209,6 +213,8 @@ exports.agents_create_agent = (req, res, next) =>{
                 spesialis: result.spesialis,
                 sertifikat: result.sertifikat,
                 foto: result.foto,
+                biaya: result.biaya,
+                status: result.status,
                 id_role: result.id_role
             }
         });
@@ -261,6 +267,8 @@ exports.agents_get_agent = async (req, res, next) => {
                 sertifikat: 1,
                 foto: 1,
                 id_role: 1,
+                biaya: 1,
+                status: 1,
                 nama_role: '$role.nama_role'
             }
         }
@@ -335,6 +343,8 @@ exports.agents_get_agent_by_idrole = async (req, res, next) => {
                 spesialis: 1,
                 sertifikat: 1,
                 foto: 1,
+                biaya: 1,
+                status: 1,
                 id_role: 1
             }
         }
