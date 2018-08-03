@@ -435,7 +435,7 @@ exports.agents_update_name = (req, res, next) => {
             console.log(result);
             res.status(200).json({
                 message: 'Update nomor telepon berhasil',
-                "status": "100"
+                status: "100"
             });
         })
         .catch(err => {
@@ -452,7 +452,7 @@ exports.agents_update_name = (req, res, next) => {
             console.log(result);
             res.status(200).json({
                 message: 'Update tanggal lahir telepon berhasil',
-                "status": "100"
+                status: "100"
             });
         })
         .catch(err => {
@@ -469,7 +469,24 @@ exports.agents_update_name = (req, res, next) => {
             console.log(result);
             res.status(200).json({
                 message: 'Update jenis kelamin berhasil',
-                "status": "100"
+                status: "100"
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+    }
+    else if(req.body.field === 'biaya') {
+        Agent.updateOne({ _id: id}, { $set: {biaya: req.body.value}})
+        .exec()
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                message: 'Update biaya berhasil',
+                status: "100"
             });
         })
         .catch(err => {
