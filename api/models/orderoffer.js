@@ -9,13 +9,13 @@ const orderofferSchema = mongoose.Schema({
     id_role: { type: mongoose.Schema.Types.ObjectId, ref: 'Role', required: true},
     jk_agen: { type: String, required: true},
     jml_shift: { type: Number, required: true},
-    tgl_mulai: { type: String, required: true},
+    jml_agent: { type: Number, required: true},
     jns_layanan: { type: String},
     biaya: { type: String},
     info: { type: String},
     status: { type: Number, required: true},
-    id_agent: { type: mongoose.Schema.Types.ObjectId, ref: 'Agent'},
-    created_at: { type: String, required: true}
+    created_at: { type: String, required: true},
+    id_agent: { type: mongoose.Schema.Types.ObjectId, ref: 'Agent'}
 });
 
 module.exports = mongoose.model('OrderOffer', orderofferSchema);

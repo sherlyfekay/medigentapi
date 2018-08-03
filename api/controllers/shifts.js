@@ -6,7 +6,7 @@ const BASE_URL = 'http://localhost:3000/';
 
 exports.shifts_get_all = (req, res, next) => {
     Shift.find()
-        .select("_id tgl_shift tindakan kondisi id_orderoffer")
+        .select("_id tanggal jam tindakan kondisi id_orderoffer")
         .exec()
         .then(docs => {
             const response = {
@@ -15,7 +15,8 @@ exports.shifts_get_all = (req, res, next) => {
                 shifts: docs.map(doc => {
                     return {
                         _id: doc._id,
-                        tgl_shift: doc.tgl_shift,
+                        tanggal: doc.tanggal,
+                        jam: doc.jam,
                         tindakan: doc.tindakan,
                         kondisi: doc.kondisi,
                         id_orderoffer: doc.id_orderoffer
@@ -43,9 +44,8 @@ exports.shifts_create_shift = (req, res, next) =>{
 
         const shift = new Shift({
             _id: new mongoose.Types.ObjectId(),
-            tgl_shift: req.body.tgl_shift,
-            tindakan: req.body.tindakan,
-            kondisi: req.body.kondisi,
+            tanggal: req.body.tanggal,
+            jam: req.body.jam,
             id_orderoffer: req.body.id_orderoffer
         });
     
@@ -74,7 +74,8 @@ exports.shifts_get_shift = (req, res, next) => {
             if(doc) {
                 res.status(200).json({
                     _id: doc._id,
-                    tgl_shift: doc.tgl_shift,
+                    tanggal: doc.tanggal,
+                    jam: doc.jam,
                     tindakan: doc.tindakan,
                     kondisi: doc.kondisi,
                     id_orderoffer: doc.id_orderoffer
@@ -107,7 +108,8 @@ exports.shifts_get_shifts_by_idoo = (req, res, next) => {
                 shifts: docs.map(doc => {
                     return {
                         _id: doc._id,
-                        tgl_shift: doc.tgl_shift,
+                        tanggal: doc.tanggal,
+                        jam: doc.jam,
                         tindakan: doc.tindakan,
                         kondisi: doc.kondisi,
                         id_orderoffer: doc.id_orderoffer

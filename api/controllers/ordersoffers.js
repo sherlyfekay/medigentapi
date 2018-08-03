@@ -11,8 +11,7 @@ const BASE_URL = 'http://localhost:3000/';
 
 exports.oo_get_all = (req, res, next) => {
     OrderOffer.find()
-        .select("_id jenis id_user id_patient id_address id_role jk_agen tgl_mulai jns_layanan jml_shift biaya info status created_at id_agent")
-        .populate({path: 'id_agent', model: Agent, select: 'nama_lengkap id_role'})
+        .select("_id jenis id_user id_patient id_address id_role jk_agen jns_layanan jml_shift biaya info status created_at jml_agent id_agent")
         .populate({path: 'id_patient', model: Patient, select: 'nama_lengkap'})
         //.populate({path: 'id_patient', model: Patient, select: 'nama_lengkap id_user', populate: {path: 'id_user', model: User, select: 'nama_lengkap'}})
         .exec()
@@ -29,13 +28,13 @@ exports.oo_get_all = (req, res, next) => {
                         id_patient: doc.id_patient,
                         id_address: doc.id_address,
                         jk_agen: doc.jk_agen,
-                        tgl_mulai: doc.tgl_mulai,
                         jns_layanan: doc.jns_layanan,
                         jml_shift: doc.jml_shift,
                         biaya: doc.biaya,
                         info: doc.info,
                         status: doc.status,
                         created_at: doc.created_at,
+                        jml_agent: doc.jml_agent,
                         id_agent: doc.id_agent
                     }
                 })
@@ -70,7 +69,6 @@ exports.oo_create_order = async (req, res, next) =>{
             id_patient: req.body.id_patient,
             id_address: req.body.id_address,
             jk_agen: req.body.jk_agen,
-            tgl_mulai: req.body.tgl_mulai,
             jns_layanan: req.body.jns_layanan,
             jml_shift: req.body.jml_shift,
             id_role: req.body.id_role,
@@ -78,7 +76,7 @@ exports.oo_create_order = async (req, res, next) =>{
             // info: req.body.info,
             status: req.body.status,
             created_at: req.body.created_at,
-            id_agent: req.body.id_agent
+            jml_agent: req.body.jml_agent
         });
 
         orderoffer
@@ -120,7 +118,6 @@ exports.oo_create_offer = async (req, res, next) =>{
             id_patient: req.body.id_patient,
             id_address: req.body.id_address,
             jk_agen: req.body.jk_agen,
-            tgl_mulai: req.body.tgl_mulai,
             id_role: req.body.id_role,
             //jns_layanan: req.body.jns_layanan,
             jml_shift: req.body.jml_shift,
@@ -128,7 +125,7 @@ exports.oo_create_offer = async (req, res, next) =>{
             info: req.body.info,
             status: req.body.status,
             created_at: req.body.created_at,
-            id_agent: req.body.id_agent
+            jml_agent: 1
         });
 
         orderoffer
