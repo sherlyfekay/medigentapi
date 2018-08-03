@@ -215,6 +215,27 @@ exports.shifts_update_shift = (req, res, next) => {
         });
 };
 
+exports.shifts_update_status = (req, res, next) => {
+    const id = req.params.shiftId;
+    
+    if(req.body.field === 'status') {
+        Shift.updateOne({ _id: id}, { $set: {status: req.body.intValue}})
+        .exec()
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                message: 'Berhasil'
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+    }
+};
+
 exports.shifts_delete_shift = (req, res, next) => {
     const id = req.params.shiftId;
 

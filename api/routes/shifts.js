@@ -48,6 +48,9 @@ router.get('/kategori/:orderofferId', checkAuth, ShiftsController.shifts_get_shi
 //--PATCH /shifts/_id
 router.patch('/:shiftId', checkAuth, ShiftsController.shifts_update_shift);
 
+//--PATCH /shifts/_id
+router.patch('/updatestat/:shiftId', checkAuth, ShiftsController.shifts_update_status);
+
 //--DELETE /shifts/_id
 router.delete('/:shiftId', checkAuth, ShiftsController.shifts_delete_shift);
 
