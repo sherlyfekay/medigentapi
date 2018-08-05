@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    a.btn.btn-success(href='/w/patients/create') Add Patient
+    br
+    br
+    table.table.table-striped
+        tr
+            th No.
+            th Nama Lengkap
+            th Nama User
+            th Action
+        
+        each dd, i in data.patients
+            tr
+                td= (i+1)
+                td= dd.nama_lengkap
+                td= dd.nama_user
+
+                td
+                    a.btn.btn-sm.btn-info(href='/w/patients/getone/'+dd._id) View
+                    &nbsp;
+                    a.btn.btn-sm.btn-warning(href='/w/patients/update/'+dd._id) Update
+                    &nbsp;
+                    a.btn.btn-sm.btn-danger(href='#', onclick='(confirm("Are you sure to delete this patient ?")) ? location.href="/w/patients/deleteone/'+dd._id+'" : alert("Delete cancel")') Delete

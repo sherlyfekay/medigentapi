@@ -1,0 +1,38 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    a.btn.btn-success(href='/w/shifts/create') Add Shift
+    br
+    br
+    table.table.table-striped
+        tr
+            th No.
+            th Tanggal
+            th Jam
+            th Tindakan
+            th Kondisi
+            th Status
+            th ID OrderOffer
+            th Action
+        
+        each dd, i in data.shifts
+            tr
+                td= (i+1)
+                td= dd.tanggal
+                td= dd.jam
+                td= dd.tindakan
+                td= dd.kondisi
+
+                if dd.status == 1
+                    td Sudah Ditangani
+                else
+                    td Belum Ditangani
+                
+                td= dd.id_orderoffer
+
+                td
+                    a.btn.btn-sm.btn-warning(href='/w/shifts/update/'+dd._id) Update
+                    &nbsp;
+                    a.btn.btn-sm.btn-danger(href='#', onclick='(confirm("Are you sure to delete this shift ?")) ? location.href="/w/shifts/deleteone/'+dd._id+'" : alert("Delete cancel")') Delete

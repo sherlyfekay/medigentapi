@@ -1,0 +1,37 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    a.btn.btn-success(href='/w/ordersoffers/create') Add OrderOffer
+    br
+    br
+    table.table.table-striped
+        tr
+            th No.
+            th ID OrderOffer
+            th Status
+            th Action
+        
+        each dd, i in data.ordersoffers
+            tr
+                td= (i+1)
+                td= dd._id
+
+                if dd.status == 1
+                    td Menunggu
+                else if dd.status == 2
+                    td Dalam Proses
+                else if dd.status == 3
+                    td Selesai
+                else if dd.status == 4
+                    td Ditolak
+                else
+                    td Dibatalkan
+
+                td
+                    a.btn.btn-sm.btn-info(href='/w/ordersoffers/getone/'+dd._id) View
+                    &nbsp;
+                    a.btn.btn-sm.btn-warning(href='/w/ordersoffers/update/'+dd._id) Update
+                    &nbsp;
+                    a.btn.btn-sm.btn-danger(href='#', onclick='(confirm("Are you sure to delete this orderoffer ?")) ? location.href="/w/ordersoffers/deleteone/'+dd._id+'" : alert("Delete cancel")') Delete

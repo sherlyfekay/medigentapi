@@ -1,0 +1,31 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    table.table.table-striped
+        tr
+            td.text-center(colspan='2')
+                img.img-responsive.img-thumbnail(src=data.user.foto, width='150px')
+            
+        tr
+            td Nama Lengkap
+            td
+                b= data.user.nama_lengkap
+        tr
+            td Email
+            td
+                b= data.user.email
+        tr
+            td Jenis Kelamin
+            td
+                b= data.user.jk
+        tr
+            td Tanggal Lahir
+            td
+                b= data.user.tgl_lahir
+        tr
+            td Telepon
+            td
+                b= data.user.telepon
+        

@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    a.btn.btn-success(href='/w/addresses/create') Add Address
+    br
+    br
+    table.table.table-striped
+        tr
+            th No.
+            th Judul
+            th Nama User
+            th Action
+        
+        each dd, i in data.addresses
+            tr
+                td= (i+1)
+                td= dd.judul
+                td= dd.nama_user
+
+                td
+                    a.btn.btn-sm.btn-info(href='/w/addresses/getone/'+dd._id) View
+                    &nbsp;
+                    a.btn.btn-sm.btn-warning(href='/w/addresses/update/'+dd._id) Update
+                    &nbsp;
+                    a.btn.btn-sm.btn-danger(href='#', onclick='(confirm("Are you sure to delete this address ?")) ? location.href="/w/addresses/deleteone/'+dd._id+'" : alert("Delete cancel")') Delete

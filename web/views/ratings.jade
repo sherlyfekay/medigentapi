@@ -1,0 +1,31 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    a.btn.btn-success(href='/w/ratings/create') Add Rating
+    br
+    br
+    table.table.table-striped
+        tr
+            th No.
+            th Tanggal
+            th Rating
+            th Komentar
+            th ID Agent
+            th ID OrderOffer
+            th Action
+        
+        each dd, i in data.ratings
+            tr
+                td= (i+1)
+                td= dd.tgl
+                td= dd.rating
+                td= dd.komentar
+                td= dd.id_agent
+                td= dd.id_orderoffer
+
+                td
+                    a.btn.btn-sm.btn-warning(href='/w/ratings/update/'+dd._id) Update
+                    &nbsp;
+                    a.btn.btn-sm.btn-danger(href='#', onclick='(confirm("Are you sure to delete this rating ?")) ? location.href="/w/ratings/deleteone/'+dd._id+'" : alert("Delete cancel")') Delete

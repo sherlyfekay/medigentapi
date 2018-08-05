@@ -1,0 +1,36 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    table.table.table-striped
+        tr
+            td Judul
+            td
+                b= data.address.judul
+        tr
+            td Alamat Lengkap
+            td
+                b= data.address.alamat_lengkap
+        tr
+            td Tambahan
+            td
+                b= data.address.tambahan
+        tr
+            td Latitude
+            td
+                b= data.address.lat
+        tr
+            td Longitude
+            td
+                b= data.address.lng
+        tr
+            td Status
+            td
+                b= data.address.status
+        tr
+            td ID User
+            td
+                b= data.address.id_user
+
+        

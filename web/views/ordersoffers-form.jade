@@ -1,0 +1,51 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    form.form-vertical(role='form', action=data.action, method='post')
+        input(type="hidden", name="_id", value=data.value._id)
+        .form-group
+            label.control-label(for="nama_lengkap") Jenis
+            input.form-control(type="text", placeholder='Masukkan jenis', name="jenis", value=data.value.jenis)
+        .form-group
+            label.control-label(for="nama_lengkap") ID User
+            input.form-control(type="text", placeholder='Masukkan ID User', name="id_user", value=data.value.id_user)
+        .form-group
+            label.control-label(for="nama_lengkap") ID Address
+            input.form-control(type="text", placeholder='Masukkan ID Address', name="id_address", value=data.value.id_address)
+        .form-group
+            label.control-label(for="nama_lengkap") ID Patient
+            input.form-control(type="text", placeholder='Masukkan ID Patient', name="id_patient", value=data.value.id_patient)
+        .form-group
+            label.control-label(for="nama_lengkap") ID Role
+            input.form-control(type="text", placeholder='Masukkan ID Role', name="id_role", value=data.value.id_role)
+        .form-group
+            label.control-label(for="nama_lengkap") Jenis Kelamin Agen
+            input.form-control(type="text", placeholder='Masukkan jenis kelamin agen', name="jk_agen", value=data.value.jk_agen)
+        .form-group
+            label.control-label(for="nama_lengkap") Jumlah Shift
+            input.form-control(type="text", placeholder='Masukkan jumlah shift', name="jml_shift", value=data.value.jml_shift)
+        .form-group
+            label.control-label(for="nama_lengkap") Jumlah Agent
+            input.form-control(type="text", placeholder='Masukkan jumlah agent', name="jml_agent", value=data.value.jml_agent)
+        .form-group
+            label.control-label(for="nama_lengkap") Jenis Layanan
+            input.form-control(type="text", placeholder='Masukkan jenis layanan', name="jns_layanan", value=data.value.jns_layanan)
+         .form-group
+            label.control-label(for="nama_lengkap") Biaya
+            input.form-control(type="text", placeholder='Masukkan Biaya yang dianggarkan', name="biaya", value=data.value.biaya)
+         .form-group
+            label.control-label(for="nama_lengkap") Informasi Tambahan
+            input.form-control(type="text", placeholder='Masukkan informasi tambahan', name="info", value=data.value.info)
+         .form-group
+            label.control-label(for="nama_lengkap") Created At
+            input.form-control(type="text", placeholder='Masukkan tanggal pembuatan', name="created_at", value=data.value.created_at)
+        .form-group
+            label.control-label(for="nama_lengkap") Status
+            input.form-control(type="text", placeholder='Masukkan status', name="status", value=data.value.status)
+        .form-group
+            label.control-label(for="nama_lengkap") ID Agent
+            input.form-control(type="text", placeholder='Masukkan ID Agent', name="id_agent", value=data.value.id_agent)
+        .form-group
+            input.btn.btn-primary(type="submit", name="submit", value="Simpan")

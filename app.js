@@ -1,4 +1,6 @@
 const express = require('express');
+const session = require('express-session');
+const path = require('path');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -17,6 +19,18 @@ const ooRoutes = require('./api/routes/ordersoffers');
 const articleRoutes = require('./api/routes/articles');
 const ratingRoutes = require('./api/routes/ratings');
 
+const wDash = require('./web/routes/dashboard');
+const wAgent = require('./web/routes/agents');
+const wUser = require('./web/routes/users');
+const wPatient = require('./web/routes/patients');
+const wAddress = require('./web/routes/addresses');
+const wOrderOffer = require('./web/routes/ordersoffers');
+const wShift = require('./web/routes/shifts');
+const wRating = require('./web/routes/ratings');
+const wRole = require('./web/routes/roles');
+const wArticle = require('./web/routes/articles');
+const wSignin = require('./web/routes/signin');
+
 // mongoose.connect("mongodb://admin:" + process.env.MONGO_ATLAS_PW + 
 //     "@medigent-shard-00-00-jfxgi.mongodb.net:27017,medigent-shard-00-01-jfxgi.mongodb.net:27017,medigent-shard-00-02-jfxgi.mongodb.net:27017/test?ssl=true&replicaSet=medigent-shard-0&authSource=admin"
 // );
@@ -26,6 +40,21 @@ const ratingRoutes = require('./api/routes/ratings');
 mongoose.connect("mongodb://sherly:sherlycantiksekail@localhost:64526/medigent");
 
 app.use(morgan('dev'));
+
+app.use(express.static(path.join(__dirname, './web/publics')));
+app.set('views', path.join(__dirname, './web/views'));
+app.set('view engine', 'jade');
+
+app.use(
+    session({
+        key: 'sherly_syantieq',
+        secret: 'sherly-fekay-medigent',
+        resave: true,
+        saveUninitialized: true,
+        cookie: { expires: 600000  }
+    })
+);
+
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -56,6 +85,18 @@ app.use('/shifts', shiftRoutes);
 app.use('/ordersoffers', ooRoutes);
 app.use('/articles', articleRoutes);
 app.use('/ratings', ratingRoutes);
+
+app.use('/w/dashboard', wDash);
+app.use('/w/agents', wAgent);
+app.use('/w/users', wUser);
+app.use('/w/patients', wPatient);
+app.use('/w/addresses', wAddress);
+app.use('/w/ordersoffers', wOrderOffer);
+app.use('/w/shifts', wShift);
+app.use('/w/ratings', wRating);
+app.use('/w/roles', wRole);
+app.use('/w/articles', wArticle);
+app.use('/w/signin', wSignin);
 
 app.use((req, res, next) => {
     const error = new Error('Not found');

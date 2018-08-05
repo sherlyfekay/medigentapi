@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    form.form-vertical(role='form', action=data.action, method='post')
+        input(type="hidden", name="_id", value=data.value._id)
+        .form-group
+            label.control-label(for="nama_lengkap") Tanggal
+            input.form-control(type="text", placeholder='Masukkan tanggal', name="tanggal", value=data.value.tanggal)
+        .form-group
+            label.control-label(for="nama_lengkap") Jam
+            input.form-control(type="text", placeholder='Masukkan jam', name="jam", value=data.value.jam)
+        .form-group
+            label.control-label(for="nama_lengkap") Tindakan
+            input.form-control(type="text", placeholder='Masukkan tindakan', name="tindakan", value=data.value.tindakan)
+        .form-group
+            label.control-label(for="nama_lengkap") Kondisi
+            input.form-control(type="text", placeholder='Masukkan kondisi', name="kondisi", value=data.value.kondisi)
+        .form-group
+            label.control-label(for="nama_lengkap") Status
+            input.form-control(type="text", placeholder='Masukkan status', name="status", value=data.value.status)
+        .form-group
+            label.control-label(for="nama_lengkap") ID OrderOffer
+            input.form-control(type="text", placeholder='Masukkan ID OrderOffer', name="id_orderoffer", value=data.value.id_orderoffer)
+        .form-group
+            input.btn.btn-primary(type="submit", name="submit", value="Simpan")

@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    a.btn.btn-success(href='/w/roles/create') Add Role
+    br
+    br
+    table.table.table-striped
+        tr
+            th No.
+            th Nama Role
+            th Action
+        
+        each dd, i in data.roles
+            tr
+                td= (i+1)
+                td= dd.nama_role
+
+                td
+                    a.btn.btn-sm.btn-info(href='/w/roles/getone/'+dd._id) View
+                    &nbsp;
+                    a.btn.btn-sm.btn-warning(href='/w/roles/update/'+dd._id) Update
+                    &nbsp;
+                    a.btn.btn-sm.btn-danger(href='#', onclick='(confirm("Are you sure to delete this role ?")) ? location.href="/w/roles/deleteone/'+dd._id+'" : alert("Delete cancel")') Delete

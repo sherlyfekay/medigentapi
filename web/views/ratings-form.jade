@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    form.form-vertical(role='form', action=data.action, method='post')
+        input(type="hidden", name="_id", value=data.value._id)
+        .form-group
+            label.control-label(for="nama_lengkap") Tanggal
+            input.form-control(type="text", placeholder='Masukkan tanggal', name="tgl", value=data.value.tgl)
+        .form-group
+            label.control-label(for="nama_lengkap") Rating
+            input.form-control(type="text", placeholder='Masukkan rating', name="rating", value=data.value.rating)
+        .form-group
+            label.control-label(for="nama_lengkap") Komentar
+            input.form-control(type="text", placeholder='Masukkan komentar', name="komentar", value=data.value.komentar)
+        .form-group
+            label.control-label(for="nama_lengkap") ID Agent
+            input.form-control(type="text", placeholder='Masukkan ID Agent', name="id_agent", value=data.value.id_agent)
+        .form-group
+            label.control-label(for="nama_lengkap") ID OrderOffer
+            input.form-control(type="text", placeholder='Masukkan ID OrderOffer', name="id_orderoffer", value=data.value.id_orderoffer)
+        .form-group
+            input.btn.btn-primary(type="submit", name="submit", value="Simpan")

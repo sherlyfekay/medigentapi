@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    table.table.table-striped
+        tr
+            td.text-center(colspan='2')
+                img.img-responsive.img-thumbnail(src=data.article.gambar, width='300px')
+        tr
+            td Judul Artikel
+            td
+                b= data.article.judul
+        tr
+            td Sumber
+            td
+                b= data.article.sumber
+        tr
+            td Link
+            td
+                b= data.article.link
+        
+
+        

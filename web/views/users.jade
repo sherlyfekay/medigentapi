@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    a.btn.btn-success(href='/w/users/create') Add User
+    br
+    br
+    table.table.table-striped
+        tr
+            th No.
+            th Nama Lengkap
+            th Action
+        
+        each dd, i in data.users
+            tr
+                td= (i+1)
+                td= dd.nama_lengkap
+                //- td
+                //-     if dd.status == 0
+                //-         a.btn.btn-sm.btn-danger(href='#', onclick='(confirm("Are you sure to verify this agent ?")) ? location.href="/w/agents/verification/'+dd._id+'" : alert("Verification cancel")') Belum Terverifikasi
+                //-     else
+                //-         a.btn.btn-sm.btn-success(href='#') Sudah Terverifikasi
+
+                td
+                    a.btn.btn-sm.btn-info(href='/w/users/getone/'+dd._id) View
+                    &nbsp;
+                    a.btn.btn-sm.btn-warning(href='/w/users/update/'+dd._id) Update
+                    &nbsp;
+                    a.btn.btn-sm.btn-danger(href='#', onclick='(confirm("Are you sure to delete this user ?")) ? location.href="/w/users/deleteone/'+dd._id+'" : alert("Delete cancel")') Delete

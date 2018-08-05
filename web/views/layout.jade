@@ -1,0 +1,49 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(name='description', content='')
+        meta(name='author', content='')
+        title Medigent | Web
+        link(href='http://localhost:3035/vendor/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+        link(href='https://blackrockdigital.github.io/startbootstrap-sb-admin/vendor/fontawesome-free/css/all.min.css', rel='stylesheet', type='text/css')
+        link(href='https://blackrockdigital.github.io/startbootstrap-sb-admin/css/sb-admin.css', rel='stylesheet', type='text/css')
+        link(href='http://localhost:3035/css/simple-sidebar.css', rel='stylesheet')
+    body
+        #wrapper.toggled
+            // Sidebar
+            #sidebar-wrapper
+                ul.sidebar-nav
+                    li.sidebar-brand
+                        a(href='/w/dashboard') Medical Agent
+                    li
+                        a(href='/w/agents') Agents
+                    li
+                        a(href='/w/users') Users
+                    li
+                        a(href='/w/patients') Patients
+                    li
+                        a(href='/w/addresses') Addresses
+                    li
+                        a(href='/w/ordersoffers') Orders Offers
+                    li
+                        a(href='/w/shifts') Shifts
+                    li
+                        a(href='/w/ratings') Ratings
+                    li
+                        a(href='/w/roles') Roles
+                    li
+                        a(href='/w/articles') Articles
+                    li
+                        a(href='/w/signin/logout') Logout
+            #page-content-wrapper
+                block content
+
+        script(src='http://localhost:3035/vendor/jquery/jquery.min.js')
+        script(src='http://localhost:3035/vendor/bootstrap/js/bootstrap.bundle.min.js')
+        script.
+            $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+            });

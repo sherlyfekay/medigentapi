@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    form.form-vertical(role='form', action=data.action, method='post')
+        input(type="hidden", name="_id", value=data.value._id)
+        .form-group
+            label.control-label(for="nama_lengkap") Judul
+            input.form-control(type="text", placeholder='Masukkan judul', name="judul", value=data.value.judul)
+        .form-group
+            label.control-label(for="nama_lengkap") Alamat Lengkap
+            input.form-control(type="text", placeholder='Masukkan alamat lengkap', name="alamat_lengkap", value=data.value.alamat_lengkap)
+        .form-group
+            label.control-label(for="nama_lengkap") Tambahan
+            input.form-control(type="text", placeholder='Masukkan tambahan', name="tambahan", value=data.value.tambahan)
+        .form-group
+            label.control-label(for="nama_lengkap") Latitude
+            input.form-control(type="text", placeholder='Masukkan latitude', name="lat", value=data.value.lat)
+        .form-group
+            label.control-label(for="nama_lengkap") Longitude
+            input.form-control(type="text", placeholder='Masukkan longitude', name="lng", value=data.value.lng)
+        .form-group
+            label.control-label(for="nama_lengkap") Status
+            input.form-control(type="text", placeholder='Masukkan status', name="status", value=data.value.status)
+        .form-group
+            label.control-label(for="nama_lengkap") ID User
+            input.form-control(type="text", placeholder='Masukkan ID user', name="id_user", value=data.value.id_user)
+        .form-group
+            input.btn.btn-primary(type="submit", name="submit", value="Simpan")

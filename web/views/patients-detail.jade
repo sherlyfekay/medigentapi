@@ -1,0 +1,52 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    table.table.table-striped
+        tr
+            td Nama Lengkap
+            td
+                b= data.patient.nama_lengkap
+        tr
+            td Jenis Kelamin
+            td
+                b= data.patient.jk
+        tr
+            td Tanggal Lahir
+            td
+                b= data.patient.tgl_lahir
+        tr
+            td Berat
+            td
+                b= data.patient.berat
+        tr
+            td Tinggi
+            td
+                b= data.patient.tinggi
+        tr
+            td Hubungan
+            td
+                b= data.patient.hubungan
+        tr
+            td Alat
+            td
+                b= data.patient.alat
+        tr
+            td Diagnosa
+            td
+                b= data.patient.diagnosa
+        tr
+            td Kondisi
+            td
+                b= data.patient.kondisi
+        tr
+            td Status
+            td
+                b= data.patient.status
+        tr
+            td ID User
+            td
+                b= data.patient.id_user
+
+        

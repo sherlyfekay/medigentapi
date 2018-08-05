@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    a.btn.btn-success(href='/w/articles/create') Add Article
+    br
+    br
+    table.table.table-striped
+        tr
+            th No.
+            th Judul Artikel
+            th Action
+        
+        each dd, i in data.articles
+            tr
+                td= (i+1)
+                td= dd.judul
+
+                td
+                    a.btn.btn-sm.btn-info(href='/w/articles/getone/'+dd._id) View
+                    &nbsp;
+                    a.btn.btn-sm.btn-warning(href='/w/articles/update/'+dd._id) Update
+                    &nbsp;
+                    a.btn.btn-sm.btn-danger(href='#', onclick='(confirm("Are you sure to delete this article ?")) ? location.href="/w/articles/deleteone/'+dd._id+'" : alert("Delete cancel")') Delete

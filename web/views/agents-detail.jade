@@ -1,0 +1,49 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    table.table.table-striped
+        tr
+            td.text-center(colspan='2')
+                img.img-responsive.img-thumbnail(src=data.agent.foto, width='150px')
+            
+        tr
+            td Nama Lengkap
+            td
+                b= data.agent.nama_lengkap
+        tr
+            td Email
+            td
+                b= data.agent.email
+        tr
+            td Jenis Kelamin
+            td
+                b= data.agent.jk
+        tr
+            td Tanggal Lahir
+            td
+                b= data.agent.tgl_lahir
+        tr
+            td Telepon
+            td
+                b= data.agent.telepon
+        tr
+            td Biaya
+            td
+                b= data.agent.biaya
+        tr
+            td Status
+            td
+                if data.agent.status == 0
+                    btn.btn-sm.btn-danger Belum Terverifikasi
+                else
+                    btn.btn-sm.btn-success Sudah Terverifikasi
+        tr
+            td ID Role
+            td
+                b= data.agent.id_role
+        tr
+            td Sertifikat
+            td
+                img.img-responsive.img-thumbnail(src=data.agent.sertifikat, width='500px')

@@ -1,0 +1,49 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    form.form-vertical(role='form', action=data.action, method='post')
+        input(type="hidden", name="_id", value=data.value._id)
+        .form-group
+            label.control-label(for="nama_lengkap") Nama Lengkap
+            input.form-control(type="text", placeholder='Masukkan nama lengkap', name="nama_lengkap", value=data.value.nama_lengkap)
+        .form-group
+            label.control-label(for="nama_lengkap") Email
+            input.form-control(type="email", placeholder='Masukkan email', name="email", value=data.value.email)
+        .form-group
+            label.control-label(for="nama_lengkap") Password
+            input.form-control(type="password", placeholder='Masukkan password', name="password", value=data.value.password)
+        .form-group
+            label.control-label(for="nama_lengkap") Jenis Kelamin
+            input.form-control(type="text", placeholder='Masukkan jenis kelamin', name="jk", value=data.value.jk)
+        .form-group
+            label.control-label(for="nama_lengkap") Tanggal Lahir
+            input.form-control(type="text", placeholder='Masukkan tanggal lahir', name="tgl_lahir", value=data.value.tgl_lahir)
+        .form-group
+            label.control-label(for="nama_lengkap") Telepon
+            input.form-control(type="text", placeholder='Masukkan telepon', name="telepon", value=data.value.telepon)
+        .form-group
+            label.control-label(for="nama_lengkap") Biaya
+            input.form-control(type="text", placeholder='Masukkan biaya', name="biaya", value=data.value.biaya)
+        .form-group
+            label.control-label(for="nama_lengkap") Sertifikat
+            input.form-control(type="text", placeholder='Masukkan sertifikat', name="sertifikat", value=data.value.sertifikat)
+        .form-group
+            label.control-label(for="nama_lengkap") Foto
+            input.form-control(type="text", placeholder='Masukkan foto', name="foto", value=data.value.foto)
+        .form-group
+            label.control-label(for="nama_lengkap") Status
+            input.form-control(type="text", placeholder='Masukkan status', name="status", value=data.value.status)
+        .form-group
+            label.control-label(for="nama_lengkap") ID Role
+            select.form-control(name='id_role')
+                option(value='') -select-
+                each dd in data.roles
+                    if dd._id.equals(data.value.id_role)
+                        option(value=dd._id, selected)= dd.nama_role
+                    else
+                        option(value=dd._id)= dd.nama_role
+            //-input.form-control(type="text", placeholder='enter id role', name="id_role", value=data.value.id_role)
+        .form-group
+            input.btn.btn-primary(type="submit", name="submit", value="Simpan")

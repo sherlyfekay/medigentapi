@@ -1,0 +1,42 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    form.form-vertical(role='form', action=data.action, method='post')
+        input(type="hidden", name="_id", value=data.value._id)
+        .form-group
+            label.control-label(for="nama_lengkap") Nama Lengkap
+            input.form-control(type="text", placeholder='Masukkan nama lengkap', name="nama_lengkap", value=data.value.nama_lengkap)
+        .form-group
+            label.control-label(for="nama_lengkap") Jenis Kelamin
+            input.form-control(type="text", placeholder='Masukkan jenis kelamin', name="jk", value=data.value.jk)
+        .form-group
+            label.control-label(for="nama_lengkap") Tanggal Lahir
+            input.form-control(type="text", placeholder='Masukkan tanggal lahir', name="tgl_lahir", value=data.value.tgl_lahir)
+        .form-group
+            label.control-label(for="nama_lengkap") Berat
+            input.form-control(type="text", placeholder='Masukkan berat badan', name="berat", value=data.value.berat)
+        .form-group
+            label.control-label(for="nama_lengkap") Tinggi
+            input.form-control(type="text", placeholder='Masukkan tinggi badan', name="tinggi", value=data.value.tinggi)
+        .form-group
+            label.control-label(for="nama_lengkap") Hubungan
+            input.form-control(type="text", placeholder='Masukkan hubungan', name="hubungan", value=data.value.hubungan)
+        .form-group
+            label.control-label(for="nama_lengkap") Alat Medis
+            input.form-control(type="text", placeholder='Masukkan alat bantu medis yang dibutuhkan', name="alat", value=data.value.alat)
+        .form-group
+            label.control-label(for="nama_lengkap") Diagnosa Penyakit
+            input.form-control(type="text", placeholder='Masukkan diagnosa penyakit', name="diagnosa", value=data.value.diagnosa)
+        .form-group
+            label.control-label(for="nama_lengkap") Kondisi Pasien
+            input.form-control(type="text", placeholder='Masukkan kondisi pasien', name="kondisi", value=data.value.kondisi)
+        .form-group
+            label.control-label(for="nama_lengkap") Status
+            input.form-control(type="text", placeholder='Masukkan status', name="status", value=data.value.status)
+        .form-group
+            label.control-label(for="nama_lengkap") ID User
+            input.form-control(type="text", placeholder='Masukkan ID user', name="id_user", value=data.value.id_user)
+        .form-group
+            input.btn.btn-primary(type="submit", name="submit", value="Simpan")

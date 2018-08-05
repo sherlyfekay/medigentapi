@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    form.form-vertical(role='form', action=data.action, method='post')
+        input(type="hidden", name="_id", value=data.value._id)
+        .form-group
+            label.control-label(for="nama_lengkap") Judul Artikel
+            input.form-control(type="text", placeholder='Masukkan judul artikel', name="judul", value=data.value.judul)
+        .form-group
+            label.control-label(for="nama_lengkap") Sumber
+            input.form-control(type="text", placeholder='Masukkan sumber artikel', name="sumber", value=data.value.sumber)
+        .form-group
+            label.control-label(for="nama_lengkap") Link
+            input.form-control(type="text", placeholder='Masukkan link', name="link", value=data.value.link)
+        .form-group
+            label.control-label(for="nama_lengkap") Gambar
+            input.form-control(type="text", placeholder='Masukkan gambar', name="gambar", value=data.value.gambar)
+        .form-group
+            input.btn.btn-primary(type="submit", name="submit", value="Simpan")

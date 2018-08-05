@@ -1,0 +1,116 @@
+extends layout
+
+block content
+    h2= data.nama
+
+    table.table
+        tr
+            td
+                | Email
+                br
+                b= data.session.email
+            td
+                | Password
+                br
+                b= data.session.password
+
+    .row
+        .col-xl-4.col-sm-6.mb-4
+            .card.text-white.bg-primary.o-hidden.h-100
+                .card-body
+                    .card-body-icon
+                        i.fas.fa-fw.fa-user
+                    .mr-5= data.dAgents
+                        |  Agents
+                a.card-footer.text-white.clearfix.small.z-1(href='/w/agents')
+                    span.float-left View Details
+                    span.float-right
+                        i.fas.fa-angle-right
+        .col-xl-4.col-sm-6.mb-4
+            .card.text-white.bg-warning.o-hidden.h-100
+                .card-body
+                    .card-body-icon
+                        i.fas.fa-fw.fa-user-secret
+                    .mr-5= data.dUsers
+                        |  Users
+                a.card-footer.text-white.clearfix.small.z-1(href='/w/users')
+                    span.float-left View Details
+                    span.float-right
+                        i.fas.fa-angle-right
+        .col-xl-4.col-sm-6.mb-4
+            .card.text-white.bg-success.o-hidden.h-100
+                .card-body
+                    .card-body-icon
+                        i.fas.fa-fw.fa-users
+                    .mr-5= data.dPatients 
+                        |  Patients
+                a.card-footer.text-white.clearfix.small.z-1(href='/w/patients')
+                    span.float-left View Details
+                    span.float-right
+                        i.fas.fa-angle-right
+        .col-xl-4.col-sm-6.mb-4
+            .card.text-white.bg-info.o-hidden.h-100
+                .card-body
+                    .card-body-icon
+                        i.fas.fa-fw.fa-info
+                    .mr-5= data.dAddresses
+                        |  Addresses
+                a.card-footer.text-white.clearfix.small.z-1(href='/w/addresses')
+                    span.float-left View Details
+                    span.float-right
+                        i.fas.fa-angle-right
+        .col-xl-4.col-sm-6.mb-4
+            .card.text-white.bg-danger.o-hidden.h-100
+                .card-body
+                    .card-body-icon
+                        i.fas.fa-fw.fa-retweet
+                    .mr-5= data.dOrders
+                        |  Orders Offers
+                a.card-footer.text-white.clearfix.small.z-1(href='/w/ordersoffers')
+                    span.float-left View Details
+                    span.float-right
+                        i.fas.fa-angle-right
+        .col-xl-4.col-sm-6.mb-4
+            .card.text-white.bg-primary.o-hidden.h-100
+                .card-body
+                    .card-body-icon
+                        i.fas.fa-fw.fa-random
+                    .mr-5= data.dShifts
+                        |  Shifts
+                a.card-footer.text-white.clearfix.small.z-1(href='/w/shifts')
+                    span.float-left View Details
+                    span.float-right
+                        i.fas.fa-angle-right
+        .col-xl-4.col-sm-6.mb-4
+            .card.text-white.bg-warning.o-hidden.h-100
+                .card-body
+                    .card-body-icon
+                        i.fas.fa-fw.fa-star
+                    .mr-5= data.dRatings 
+                        |  Ratings
+                a.card-footer.text-white.clearfix.small.z-1(href='/w/ratings')
+                    span.float-left View Details
+                    span.float-right
+                        i.fas.fa-angle-right
+        .col-xl-4.col-sm-6.mb-4
+            .card.text-white.bg-success.o-hidden.h-100
+                .card-body
+                    .card-body-icon
+                        i.fas.fa-fw.fa-cog
+                    .mr-5= data.dRoles
+                        |  Roles
+                a.card-footer.text-white.clearfix.small.z-1(href='/w/roles')
+                    span.float-left View Details
+                    span.float-right
+                        i.fas.fa-angle-right
+        .col-xl-4.col-sm-6.mb-4
+            .card.text-white.bg-info.o-hidden.h-100
+                .card-body
+                    .card-body-icon
+                        i.fas.fa-fw.fa-bookmark
+                    .mr-5= data.dArticles
+                        |  Articles
+                a.card-footer.text-white.clearfix.small.z-1(href='/w/articles')
+                    span.float-left View Details
+                    span.float-right
+                        i.fas.fa-angle-right

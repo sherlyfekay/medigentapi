@@ -1,0 +1,64 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    table.table.table-striped
+        tr
+            td Jenis
+            td
+                b= data.orderoffer.jenis
+        tr
+            td ID User
+            td
+                b= data.orderoffer.id_user
+        tr
+            td ID Address
+            td
+                b= data.orderoffer.id_address
+        tr
+            td ID Patient
+            td
+                b= data.orderoffer.id_patient
+        tr
+            td ID Role
+            td
+                b= data.orderoffer.id_role
+        tr
+            td Jenis Kelamin Agent
+            td
+                b= data.orderoffer.jk_agen
+        tr
+            td Jumlah Shift
+            td
+                b= data.orderoffer.jml_shift
+        tr
+            td Jumlah Agent
+            td
+                b= data.orderoffer.jml_agent
+        tr
+            td Jenis Layanan
+            td
+                b= data.orderoffer.jns_layanan
+        tr
+            td Biaya
+            td
+                b= data.orderoffer.biaya
+        tr
+            td Informasi Tambahan
+            td
+                b= data.orderoffer.info
+        tr
+            td Created At
+            td
+                b= data.orderoffer.created_at
+        tr
+            td Status
+            td
+                b= data.orderoffer.status
+        tr
+            td ID Agent
+            td
+                b= data.orderoffer.id_agent
+
+        

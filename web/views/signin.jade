@@ -1,0 +1,30 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(name='description', content='')
+        meta(name='author', content='')
+        title Medigent | Sign In
+        link(href='http://localhost:3035/vendor/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+        link(href='http://localhost:3035/css/simple-sidebar.css', rel='stylesheet')
+    body
+        .container-fluid
+            .row(style="margin-top: 100px")
+                .col-md-3(style="float: none; margin: 0 auto; border: 1px #e9e9e9 solid; border-radius: 5px;")
+                    br
+                    h2.text-center= data.nama
+                    p.text-center= data.msg
+
+                    form.form-vertical(method='post', action='/w/signin/login')
+                        .form-group
+                            label.control-label(for="email") Email
+                            input.form-control(type="email", name="email", placeholder="enter email", required)
+                        .form-group
+                            label.control-label(for="email") Password
+                            input.form-control(type="password", name="password", placeholder="enter password", required)
+                        .form-group
+                            input.btn.btn-success.btn-block(type="submit", name="submit", value="Sign In")
+
+        script(src='http://localhost:3035/vendor/jquery/jquery.min.js')
+        script(src='http://localhost:3035/vendor/bootstrap/js/bootstrap.bundle.min.js')

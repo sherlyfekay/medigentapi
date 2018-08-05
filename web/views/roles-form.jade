@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    h2= data.nama
+    hr
+    form.form-vertical(role='form', action=data.action, method='post')
+        input(type="hidden", name="_id", value=data.value._id)
+        .form-group
+            label.control-label(for="nama_lengkap") Nama Role
+            input.form-control(type="text", placeholder='Masukkan nama role', name="nama_role", value=data.value.nama_role)
+        .form-group
+            label.control-label(for="nama_lengkap") Deskripsi
+            input.form-control(type="text", placeholder='Masukkan deskripsi', name="desc", value=data.value.desc)
+        .form-group
+            label.control-label(for="nama_lengkap") Icon
+            input.form-control(type="text", placeholder='Masukkan icon', name="icon", value=data.value.icon)
+        .form-group
+            input.btn.btn-primary(type="submit", name="submit", value="Simpan")
